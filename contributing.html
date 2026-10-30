@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contributing - Netherrack</title>
+<meta name="description" content="How to contribute to Netherrack: development setup, testing, code style, reporting bugs, feature requests, pull requests and licensing.">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#fbf8f6">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#141011">
+<meta property="og:site_name" content="Netherrack">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Contributing - Netherrack">
+<meta property="og:description" content="How to contribute to Netherrack: development setup, testing, code style, reporting bugs, feature requests, pull requests and licensing.">
+<link rel="icon" type="image/png" href="assets/img/favicon.png">
+<link rel="stylesheet" href="assets/css/style.css">
+<script>(function(){var r=document.documentElement;r.classList.add('js');try{var t=localStorage.getItem('netherrack-theme');if(t==='light'||t==='dark'){r.setAttribute('data-theme',t);}}catch(e){}})();</script>
+<script src="assets/js/site.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="header-inner">
+  <a class="brand" href="index.html" aria-label="Netherrack home"><img class="logo logo-light" src="assets/img/logo-light.png" width="1108" height="298" alt="Netherrack"><img class="logo logo-dark" src="assets/img/logo-dark.png" width="1108" height="298" alt="Netherrack"></a>
+  <nav class="site-nav" aria-label="Main"><ul><li><a href="index.html">Home</a></li><li><a href="installation.html">Install</a></li><li><a href="configuration.html">Configure</a></li><li><a href="commands.html">Commands</a></li><li><a href="guides.html">Guides</a></li><li><a href="status.html">Status</a></li><li><a href="contributing.html" aria-current="page">Contribute</a></li></ul></nav>
+  <div class="header-tools"><button class="icon-btn theme-toggle" type="button" aria-label="Switch to dark theme"><svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg></button><a class="icon-btn" href="https://github.com/NetherrackOSS/Netherrack" aria-label="Netherrack on GitHub" title="Netherrack on GitHub"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></div>
+</div></header>
+<div class="page has-toc">
+  <main id="main" class="content">
+
+<h1>Contributing</h1>
+<p class="lead">Netherrack is built from scratch, experimental, and still early &mdash; there&rsquo;s a lot of room to help. This page summarizes the project&rsquo;s own <a href="https://github.com/NetherrackOSS/Netherrack/blob/main/CONTRIBUTING.md"><code>CONTRIBUTING.md</code></a>; read that file for the complete, current version.</p>
+
+<h2 id="before">Before you start</h2>
+<ul>
+  <li>Read the <a href="https://github.com/NetherrackOSS/Netherrack#readme">README</a>.</li>
+  <li>Check existing issues and pull requests, so you&rsquo;re not duplicating work already in progress.</li>
+  <li>For anything large, open an issue first to talk through the approach.</li>
+</ul>
+<p>Netherrack is still evolving quickly &mdash; internal systems and structure may change without notice.</p>
+
+<h2 id="setup">Development setup</h2>
+<p>You&rsquo;ll need a JDK, Apache Maven, and Git. A Linux environment is recommended for testing, though contributions shouldn&rsquo;t be unnecessarily Linux-specific.</p>
+<pre><code>git clone https://github.com/NetherrackOSS/Netherrack.git
+cd Netherrack</code></pre>
+<pre><code>mvn clean package</code></pre>
+<p>The JAR lands in <code>target/</code>.</p>
+
+<h2 id="testing-changes">Testing your changes</h2>
+<p>What to test depends on what you touched, but commonly includes:</p>
+<ul>
+  <li>Starting and stopping the server.</li>
+  <li>Console commands and <code>server.properties</code>.</li>
+  <li>Connecting with an actual Bedrock client &mdash; strongly encouraged for anything networking- or protocol-related.</li>
+  <li>Block interactions and world-related functionality.</li>
+  <li>That nothing that worked before has regressed.</li>
+</ul>
+<p>If a change can&rsquo;t be tested yet because the relevant system doesn&rsquo;t exist, say so in the pull request.</p>
+
+<h2 id="areas">Where help is welcome</h2>
+<div class="cards">
+  <div class="card"><h3>Protocol &amp; networking</h3><p>Bedrock protocol implementation, RakNet integration, login and play handling.</p></div>
+  <div class="card"><h3>World &amp; blocks</h3><p>World and chunk systems, block systems, persistent world storage.</p></div>
+  <div class="card"><h3>Gameplay</h3><p>Entity systems, and eventually a plugin/API layer.</p></div>
+  <div class="card"><h3>Everything else</h3><p>Server configuration, console commands, logging, performance, testing, documentation, bug fixes, developer tooling, Linux compatibility.</p></div>
+</div>
+<p>Got an idea that isn&rsquo;t listed? Open an issue and discuss it.</p>
+
+<h2 id="design">Architecture</h2>
+<p>Netherrack is developed independently rather than as a clone of an existing server. Keep its architecture and long-term goals in mind, and avoid copying implementation code from other server software &mdash; inspiration and research are fine, but contributed code should be independently written and properly licensed. Netherrack uses open-source CloudburstMC components for networking and the Bedrock protocol; respect their licenses too.</p>
+
+<h2 id="style">Code style</h2>
+<p>Keep code readable, simple, consistent with what&rsquo;s around it, properly named, and focused on one responsibility where practical. Avoid unnecessary abstraction. Comments should explain <em>why</em>, when that isn&rsquo;t obvious from the code itself.</p>
+
+<h2 id="ai">AI-assisted contributions</h2>
+<p>Allowed, but you&rsquo;re responsible for what you submit: review the generated code, understand what it does, verify it builds and behaves correctly, check for copied or potentially copyrighted implementation details, and don&rsquo;t submit large amounts of unreviewed generated code just because it compiles.</p>
+
+<h2 id="bugs">Reporting bugs</h2>
+<p>A good bug report includes:</p>
+<ul>
+  <li>What happened, and what you expected instead.</li>
+  <li>Steps to reproduce it.</li>
+  <li>Netherrack version or commit (<a href="commands.html#version"><code>/version</code></a> gives you this).</li>
+  <li>Operating system, Java version, and Minecraft Bedrock Edition version.</li>
+  <li>Relevant console output or stack traces &mdash; the complete one, for crashes.</li>
+</ul>
+<p><a class="btn btn-primary" href="https://github.com/NetherrackOSS/Netherrack/issues">Open an issue</a></p>
+
+<h2 id="features">Feature requests</h2>
+<p>Welcome too. Explain what the feature would do, why it would be useful, how it might work, and whether it depends on something unfinished. Some features may be intentionally postponed while the underlying architecture is still being built.</p>
+
+<h2 id="prs">Pull requests</h2>
+<ul>
+  <li>Keep each PR focused on one change, or a closely related set of changes.</li>
+  <li>Explain what you changed, why, and how you tested it. Mention related issue numbers.</li>
+  <li>Avoid unrelated formatting or refactoring.</li>
+  <li>Make sure the project still builds.</li>
+</ul>
+<p>PRs may be asked to change, simplified, or declined if they don&rsquo;t fit the project&rsquo;s current direction &mdash; especially for large architectural changes this early on.</p>
+
+<h2 id="dependencies">Dependencies</h2>
+<p>Adding one? Explain why it&rsquo;s needed, prefer established and actively maintained libraries, make sure its license is compatible with GPL-3.0, and avoid adding one for something reasonably implementable without it. Never copy third-party source into Netherrack without verifying its license permits that.</p>
+
+<h2 id="license">License</h2>
+<p>Netherrack is licensed under the <a href="https://github.com/NetherrackOSS/Netherrack/blob/main/LICENSE">GNU General Public License v3.0</a>. By contributing, you agree your contribution may be distributed under that license, and that you have the right to submit it.</p>
+
+<h2 id="trademark">Minecraft and Mojang/Microsoft</h2>
+<p>Netherrack is an independent project, not affiliated with, endorsed by, or sponsored by Mojang Studios or Microsoft. Please don&rsquo;t represent it as an official Minecraft product.</p>
+
+<h2 id="community">Community</h2>
+<p>Be respectful. Technical disagreement and different approaches are normal in open source; personal attacks, harassment, discrimination, or deliberately disruptive behavior aren&rsquo;t acceptable. Netherrack is a learning and experimental project &mdash; nothing needs to be perfect on the first try.</p>
+<p><a class="btn" href="https://discord.gg/JFUz2G8H4V">Join the Discord</a></p>
+
+<nav class="pager" aria-label="Pages"><a class="prev" href="status.html"><small>Previous</small>Status</a></nav>
+  </main>
+  <aside class="toc" aria-label="On this page" hidden><h2 class="toc-title">On this page</h2><ul id="toc-list"></ul></aside>
+</div>
+<footer class="site-footer"><div class="footer-inner">
+  <ul class="footer-links"><li><a href="https://github.com/NetherrackOSS/Netherrack">GitHub</a></li><li><a href="https://github.com/NetherrackOSS/Netherrack/releases">Releases</a></li><li><a href="https://github.com/NetherrackOSS/Netherrack/issues">Report an issue</a></li><li><a href="https://discord.gg/JFUz2G8H4V">Discord</a></li><li><a href="https://github.com/NetherrackOSS/Netherrack/blob/main/LICENSE">GPL-3.0 license</a></li></ul>
+  <p>Netherrack is an independent project. It is not affiliated with, endorsed by, or sponsored by Mojang Studios or Microsoft. Minecraft is a trademark of Mojang Studios.</p>
+  <p>These docs cover Netherrack 0.1.0-alpha.</p>
+</div></footer>
+</body>
+</html>

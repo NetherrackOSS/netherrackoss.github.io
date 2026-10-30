@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guides - Netherrack</title>
+<meta name="description" content="Step-by-step guides for Netherrack: joining from Minecraft, choosing a world type, backups, making an operator, changing the language, and opening the server to the internet.">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#fbf8f6">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#141011">
+<meta property="og:site_name" content="Netherrack">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Guides - Netherrack">
+<meta property="og:description" content="Step-by-step guides for Netherrack: joining from Minecraft, choosing a world type, backups, making an operator, changing the language, and opening the server to the internet.">
+<link rel="icon" type="image/png" href="assets/img/favicon.png">
+<link rel="stylesheet" href="assets/css/style.css">
+<script>(function(){var r=document.documentElement;r.classList.add('js');try{var t=localStorage.getItem('netherrack-theme');if(t==='light'||t==='dark'){r.setAttribute('data-theme',t);}}catch(e){}})();</script>
+<script src="assets/js/site.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="header-inner">
+  <a class="brand" href="index.html" aria-label="Netherrack home"><img class="logo logo-light" src="assets/img/logo-light.png" width="1108" height="298" alt="Netherrack"><img class="logo logo-dark" src="assets/img/logo-dark.png" width="1108" height="298" alt="Netherrack"></a>
+  <nav class="site-nav" aria-label="Main"><ul><li><a href="index.html">Home</a></li><li><a href="installation.html">Install</a></li><li><a href="configuration.html">Configure</a></li><li><a href="commands.html">Commands</a></li><li><a href="guides.html" aria-current="page">Guides</a></li><li><a href="status.html">Status</a></li><li><a href="contributing.html">Contribute</a></li></ul></nav>
+  <div class="header-tools"><button class="icon-btn theme-toggle" type="button" aria-label="Switch to dark theme"><svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg></button><a class="icon-btn" href="https://github.com/NetherrackOSS/Netherrack" aria-label="Netherrack on GitHub" title="Netherrack on GitHub"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></div>
+</div></header>
+<div class="page has-toc">
+  <main id="main" class="content">
+
+<h1>Guides</h1>
+<p class="lead">Short, practical walkthroughs for things you&rsquo;ll want to do once the server is installed.</p>
+
+<h2 id="join">Joining from Minecraft</h2>
+<ol class="steps">
+  <li><p>Make sure the server is running &mdash; you should see <code>Done!</code> in its console.</p></li>
+  <li><p>On the device running Minecraft, open <strong>Play</strong> &rarr; <strong>Servers</strong> &rarr; <strong>Add Server</strong>.</p></li>
+  <li><p>Set the <strong>Server Address</strong> to the computer&rsquo;s IP address (<code>localhost</code> if Minecraft is on the same computer), and the <strong>Port</strong> to the one in <code>server.properties</code> (<code>19132</code> by default).</p></li>
+  <li><p>Save, then tap the server to join.</p></li>
+</ol>
+<div class="callout" role="note"><span class="callout-title">Only one Bedrock version</span><p>Netherrack currently speaks Bedrock protocol version 2193 (Minecraft 1.26.50) specifically. A client on a different version can still connect &mdash; the server logs a warning and carries on &mdash; but things may not work correctly.</p></div>
+
+<h2 id="world-type">Choosing a world type</h2>
+<p>Pick this <strong>before</strong> the world is first created &mdash; a level keeps the type and preset it started with, and changing the settings afterwards has no effect on it.</p>
+<ol class="steps">
+  <li><p>Stop the server if it&rsquo;s running.</p></li>
+  <li><p>In <code>server.properties</code>, set <code>level-type=flat</code> for a flat world (the only option with real content today), or leave it as <code>default</code> for an empty world.</p></li>
+  <li><p>For a flat world, open <code>netherrack.yml</code> and set <code>level.preset-type</code> to one of the <a href="configuration.html#presets">preset names</a>, for example <code>"The Void"</code>.</p></li>
+  <li><p>If a world with that <code>level-name</code> doesn&rsquo;t exist yet, start the server and it&rsquo;s created with that preset.</p></li>
+</ol>
+<div class="callout callout-tip" role="note"><span class="callout-title">Want an existing world again?</span><p>If you want to go back to a world you&rsquo;ve used before, set <code>level-name</code> to its name instead. Netherrack loads it as it is; <code>level-type</code> and the preset are only used when creating a new one.</p></div>
+
+<h2 id="new-world">Starting a fresh world</h2>
+<p>To begin again without losing the old one:</p>
+<ol class="steps">
+  <li><p>Stop the server.</p></li>
+  <li><p>In <code>server.properties</code>, change <code>level-name</code> to a new name, for example <code>world2</code>.</p></li>
+  <li><p>Start the server. Since no folder with that name exists in <code>worlds</code>, a new world is created there, built from whatever <code>level-type</code> (and preset, if flat) you have set.</p></li>
+</ol>
+<p>Your old world is untouched in <code>worlds/&lt;old-name&gt;/</code>. Switch back to it any time by setting <code>level-name</code> back.</p>
+
+<h2 id="backup">Backing up a world</h2>
+<ol class="steps">
+  <li><p>Stop the server. Copying files while it&rsquo;s writing to them can corrupt the copy.</p></li>
+  <li><p>Copy the whole <code>worlds/&lt;level-name&gt;/</code> folder somewhere safe.</p></li>
+</ol>
+<p>To restore it, stop the server, replace the folder with your backup, and start it again.</p>
+<div class="callout callout-warning" role="note"><span class="callout-title">Back up before updating</span><p>Do this before installing a newer Netherrack build, especially while it&rsquo;s in alpha &mdash; see <a href="installation.html#updating">Updating</a>.</p></div>
+
+<h2 id="operators">Making the first operator</h2>
+<p>New players start at the level in <code>default-player-permission-level</code> (<code>member</code> by default), which isn&rsquo;t enough for commands like <code>/gamemode</code>. To promote someone:</p>
+<ol class="steps">
+  <li><p>Have them join the server, so Netherrack knows their Xbox Live ID.</p></li>
+  <li><p>In the server console, run:</p>
+  <pre><code>op PlayerName</code></pre></li>
+  <li><p>They&rsquo;re now an operator, and it&rsquo;s saved in <code>permissions.json</code> for next time. <code>/deop &lt;player&gt;</code> undoes it.</p></li>
+</ol>
+<p>Since you&rsquo;re running the console, there&rsquo;s no permission-level requirement here &mdash; the console is always allowed to run <code>/op</code>. More on this in <a href="commands.html#permissions">permission levels</a>.</p>
+
+<h2 id="language-guide">Changing the console language</h2>
+<ol class="steps">
+  <li><p>Stop the server.</p></li>
+  <li><p>In <code>server.properties</code>, set <code>language</code> to <code>en-US</code> or <code>pt-BR</code>.</p></li>
+  <li><p>Start the server. The console, including chat log lines and command replies, uses that language from then on.</p></li>
+</ol>
+<p>This only changes the <em>server&rsquo;s own</em> messages. Each player&rsquo;s Minecraft client always shows the game itself in whatever language that client is set to.</p>
+
+<h2 id="port-forward">Letting friends connect over the internet</h2>
+<p>By default the server is only reachable on your local network. To open it up further:</p>
+<ol class="steps">
+  <li><p>Forward UDP port <code>19132</code> (or whatever you set <code>server-port</code> to) on your router to the computer running Netherrack.</p></li>
+  <li><p>Share your public IP address (and the port, if you changed it) with the people you want to join.</p></li>
+</ol>
+<div class="callout callout-danger" role="note"><span class="callout-title">Alpha software, open to the internet</span><p>Netherrack hasn&rsquo;t been hardened for public, unsupervised access &mdash; see <a href="status.html#limitations">known limitations</a>, in particular that Xbox Live authentication isn&rsquo;t enforced yet. Only do this with people you trust, and keep backups.</p></div>
+
+<nav class="pager" aria-label="Pages"><a class="prev" href="commands.html"><small>Previous</small>Commands</a><a class="next" href="status.html"><small>Next</small>Status</a></nav>
+  </main>
+  <aside class="toc" aria-label="On this page" hidden><h2 class="toc-title">On this page</h2><ul id="toc-list"></ul></aside>
+</div>
+<footer class="site-footer"><div class="footer-inner">
+  <ul class="footer-links"><li><a href="https://github.com/NetherrackOSS/Netherrack">GitHub</a></li><li><a href="https://github.com/NetherrackOSS/Netherrack/releases">Releases</a></li><li><a href="https://github.com/NetherrackOSS/Netherrack/issues">Report an issue</a></li><li><a href="https://discord.gg/JFUz2G8H4V">Discord</a></li><li><a href="https://github.com/NetherrackOSS/Netherrack/blob/main/LICENSE">GPL-3.0 license</a></li></ul>
+  <p>Netherrack is an independent project. It is not affiliated with, endorsed by, or sponsored by Mojang Studios or Microsoft. Minecraft is a trademark of Mojang Studios.</p>
+  <p>These docs cover Netherrack 0.1.0-alpha.</p>
+</div></footer>
+</body>
+</html>

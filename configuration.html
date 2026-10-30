@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Configuration - Netherrack</title>
+<meta name="description" content="Every Netherrack setting: server.properties, netherrack.yml, flat world presets, permissions.json and language.">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#fbf8f6">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#141011">
+<meta property="og:site_name" content="Netherrack">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Configuration - Netherrack">
+<meta property="og:description" content="Every Netherrack setting: server.properties, netherrack.yml, flat world presets, permissions.json and language.">
+<link rel="icon" type="image/png" href="assets/img/favicon.png">
+<link rel="stylesheet" href="assets/css/style.css">
+<script>(function(){var r=document.documentElement;r.classList.add('js');try{var t=localStorage.getItem('netherrack-theme');if(t==='light'||t==='dark'){r.setAttribute('data-theme',t);}}catch(e){}})();</script>
+<script src="assets/js/site.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="header-inner">
+  <a class="brand" href="index.html" aria-label="Netherrack home"><img class="logo logo-light" src="assets/img/logo-light.png" width="1108" height="298" alt="Netherrack"><img class="logo logo-dark" src="assets/img/logo-dark.png" width="1108" height="298" alt="Netherrack"></a>
+  <nav class="site-nav" aria-label="Main"><ul><li><a href="index.html">Home</a></li><li><a href="installation.html">Install</a></li><li><a href="configuration.html" aria-current="page">Configure</a></li><li><a href="commands.html">Commands</a></li><li><a href="guides.html">Guides</a></li><li><a href="status.html">Status</a></li><li><a href="contributing.html">Contribute</a></li></ul></nav>
+  <div class="header-tools"><button class="icon-btn theme-toggle" type="button" aria-label="Switch to dark theme"><svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg></button><a class="icon-btn" href="https://github.com/NetherrackOSS/Netherrack" aria-label="Netherrack on GitHub" title="Netherrack on GitHub"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></div>
+</div></header>
+<div class="page has-toc">
+  <main id="main" class="content">
+
+<h1>Configuration</h1>
+<p class="lead">Everything Netherrack reads is in plain text files next to the JAR. Stop the server before editing them &mdash; changes are read when it starts.</p>
+
+<h2 id="files">Files and folders</h2>
+<div class="table-wrap"><table><thead><tr><th scope="col">File or folder</th><th scope="col">What it holds</th></tr></thead><tbody><tr><td><code>server.properties</code></td><td>The main settings, below. Netherrack writes it with comments explaining each one.</td></tr><tr><td><code>netherrack.yml</code></td><td>Settings specific to Netherrack: debug logging, kick messages and the flat preset.</td></tr><tr><td><code>permissions.json</code></td><td>The operators, by Xbox Live ID.</td></tr><tr><td><code>worlds/&lt;level-name&gt;/</code></td><td>A world: <code>level.dat</code> and a <code>db</code> folder (LevelDB), in the same layout Bedrock uses. Player data is saved with it.</td></tr><tr><td><code>logs/latest.log</code></td><td>The console, in plain text, for the current run. It&rsquo;s overwritten each time the server starts &mdash; copy it first if you need it.</td></tr></tbody></table></div>
+
+<h2 id="server-properties">server.properties</h2>
+<p>The familiar Bedrock-style settings file, created on first run. Here&rsquo;s every setting, with its default and whether Netherrack does anything with it yet.</p>
+<div class="table-wrap"><table><thead><tr><th scope="col">Key</th><th scope="col">Default</th><th scope="col">What it does</th><th scope="col">Status</th></tr></thead><tbody><tr><td><code>server-name</code></td><td><code>Netherrack Server</code></td><td>The name shown in the server list. Any text without a semicolon.</td><td><span class="status status-ok">Works</span></td></tr><tr><td><code>gamemode</code></td><td><code>survival</code></td><td>Game mode for new players: <code>survival</code>, <code>creative</code> or <code>adventure</code>.</td><td><span class="status status-ok">Works</span></td></tr><tr><td><code>difficulty</code></td><td><code>normal</code></td><td>Meant to set the difficulty (<code>peaceful</code>, <code>easy</code>, <code>normal</code>, <code>hard</code>). Right now the world always runs on Easy, whatever this says.</td><td><span class="status status-no">Not applied yet</span></td></tr><tr><td><code>max-players</code></td><td><code>20</code></td><td>The most players that can be on the server at once.</td><td><span class="status status-ok">Works</span></td></tr><tr><td><code>online-mode</code></td><td><code>true</code></td><td>Meant to require players to be signed into Xbox Live. It isn&rsquo;t enforced yet: players who aren&rsquo;t signed in can still join (a warning is logged).</td><td><span class="status status-no">Not applied yet</span></td></tr><tr><td><code>server-port</code></td><td><code>19132</code></td><td>The UDP port to listen on, 1&ndash;65535.</td><td><span class="status status-ok">Works</span></td></tr><tr><td><code>server-ip</code></td><td><code>0.0.0.0</code></td><td>The address to listen on. <code>0.0.0.0</code> means every address on this machine.</td><td><span class="status status-ok">Works</span></td></tr><tr><td><code>view-distance</code></td><td><code>32</code></td><td>The largest view distance, in chunks, a player can use. 5 or more.</td><td><span class="status status-ok">Works</span></td></tr><tr><td><code>level-name</code></td><td><code>Bedrock level</code></td><td>The world to play on. It&rsquo;s also the name of its folder inside <code>worlds</code>.</td><td><span class="status status-ok">Works</span></td></tr><tr><td><code>default-player-permission-level</code></td><td><code>member</code></td><td>What new players start as: <code>visitor</code>, <code>member</code> or <code>operator</code>.</td><td><span class="status status-ok">Works</span></td></tr><tr><td><code>language</code></td><td><em>your choice</em></td><td>The language of the console: <code>en-US</code> or <code>pt-BR</code>. The wizard sets it on first run.</td><td><span class="status status-ok">Works</span></td></tr><tr><td><code>level-type</code></td><td><code>FLAT</code></td><td>The kind of world to create when the level doesn&rsquo;t exist yet: <code>flat</code>, or <code>default</code> for generated terrain. Generated terrain isn&rsquo;t available yet, so <code>default</code> currently makes an empty world.</td><td><span class="status status-ok">Works</span></td></tr><tr><td><code>op-permission-level</code></td><td><code>2</code></td><td>Which commands operators can use, from 0 to 4. See <a href="commands.html#permissions">permission levels</a>.</td><td><span class="status status-ok">Works</span></td></tr></tbody></table></div>
+<div class="callout callout-warning" role="note"><span class="callout-title">Settings that aren’t applied yet</span><p><code>difficulty</code> and <code>online-mode</code> are written to the file but nothing reads them yet. That matters for <code>online-mode</code> in particular: until it&rsquo;s enforced, don&rsquo;t rely on it to keep unauthenticated players out. See <a href="status.html#limitations">known limitations</a>.</p></div>
+
+<h2 id="netherrack-yml">netherrack.yml</h2>
+<p>Settings that belong to Netherrack rather than to the Bedrock file format. Values can be plain or quoted, and <code>#</code> starts a comment.</p>
+<span class="code-label">netherrack.yml (without the comments Netherrack adds)</span>
+<pre><code>logs:
+  debug: false
+
+messages:
+  server-shutdown: "Server closed"
+  server-whitelist: "You are not whitelisted on this server!"
+
+level:
+  preset-type: "Classic Flat"</code></pre>
+<div class="table-wrap"><table><thead><tr><th scope="col">Setting</th><th scope="col">Default</th><th scope="col">What it does</th></tr></thead><tbody><tr><td><code>logs.debug</code></td><td><code>false</code></td><td>If <code>true</code>, every network packet and other debugging detail goes into <code>logs/latest.log</code> (not the console). Handy when something goes wrong; the log grows quickly.</td></tr><tr><td><code>messages.server-shutdown</code></td><td><code>Server closed</code></td><td>What players still online are shown when the server closes.</td></tr><tr><td><code>messages.server-whitelist</code></td><td><code>You are not whitelisted on this server!</code></td><td>Reserved for a whitelist, which doesn&rsquo;t exist yet. Changing it has no effect for now.</td></tr><tr><td><code>level.preset-type</code></td><td><code>Classic Flat</code></td><td>Which flat preset a new flat world is built from. Only used when <code>level-type</code> is <code>flat</code>.</td></tr></tbody></table></div>
+
+<h2 id="presets">Flat world presets</h2>
+<p>Set <code>level-type=flat</code> in <code>server.properties</code>, then name a preset in <code>level.preset-type</code> in <code>netherrack.yml</code>. The names match the ones Minecraft shows in its world-creation screen.</p>
+<div class="table-wrap"><table><thead><tr><th scope="col">Preset</th><th scope="col">Layers, from the bottom up</th></tr></thead><tbody><tr><td><code>Classic Flat</code></td><td>1 bedrock, 2 dirt, 1 grass block</td></tr><tr><td><code>Tunneler's Dream</code></td><td>1 bedrock, 230 stone, 5 dirt, 1 grass block</td></tr><tr><td><code>Water World</code></td><td>1 bedrock, 64 deepslate, 5 stone, 5 dirt, 5 gravel, 90 water</td></tr><tr><td><code>Overworld</code></td><td>1 bedrock, 59 stone, 3 dirt, 1 grass block</td></tr><tr><td><code>Snowy Kingdom</code></td><td>1 bedrock, 59 stone, 3 dirt, 1 grass block, 1 snow layer</td></tr><tr><td><code>Bottomless Pit</code></td><td>2 cobblestone, 3 dirt, 1 grass block</td></tr><tr><td><code>Desert</code></td><td>1 bedrock, 3 stone, 52 sandstone, 8 sand</td></tr><tr><td><code>Redstone Ready</code></td><td>1 bedrock, 3 stone, 116 sandstone</td></tr><tr><td><code>The Void</code></td><td>No layers. Players start on a 33&times;33 stone platform at the bottom of the world.</td></tr></tbody></table></div>
+<div class="callout" role="note"><span class="callout-title">Presets only apply to new worlds</span><p>A world keeps the type it was created with. Changing <code>level-type</code> or the preset has no effect on a world that already exists &mdash; see the <a href="guides.html#world-type">guide to choosing a world type</a>.</p></div>
+
+<h2 id="permissions-file">permissions.json</h2>
+<p>A list of operators, each identified by their Xbox Live ID (XUID) &mdash; a player&rsquo;s name can change, their XUID can&rsquo;t. You normally don&rsquo;t edit this by hand: the <code>/op</code> and <code>/deop</code> commands change it for you. If the file doesn&rsquo;t exist, Netherrack creates an empty one.</p>
+<span class="code-label">permissions.json (the XUID is just an example)</span>
+<pre><code>[
+  {
+    "permission": "operator",
+    "xuid": "2535400000000000"
+  }
+]</code></pre>
+<p>Players who aren&rsquo;t signed into Xbox Live have no XUID, so they can&rsquo;t be made operators.</p>
+
+<h2 id="language">Language</h2>
+<p>The <code>language</code> setting controls the console&rsquo;s own messages: <code>en-US</code> (English) or <code>pt-BR</code> (Brazilian Portuguese). Players see the game itself in whatever language their client uses. To change it, edit the value and restart. Translations are ordinary <code>.properties</code> files in the project&rsquo;s <code>lang</code> folder.</p>
+
+<nav class="pager" aria-label="Pages"><a class="prev" href="installation.html"><small>Previous</small>Install</a><a class="next" href="commands.html"><small>Next</small>Commands</a></nav>
+  </main>
+  <aside class="toc" aria-label="On this page" hidden><h2 class="toc-title">On this page</h2><ul id="toc-list"></ul></aside>
+</div>
+<footer class="site-footer"><div class="footer-inner">
+  <ul class="footer-links"><li><a href="https://github.com/NetherrackOSS/Netherrack">GitHub</a></li><li><a href="https://github.com/NetherrackOSS/Netherrack/releases">Releases</a></li><li><a href="https://github.com/NetherrackOSS/Netherrack/issues">Report an issue</a></li><li><a href="https://discord.gg/JFUz2G8H4V">Discord</a></li><li><a href="https://github.com/NetherrackOSS/Netherrack/blob/main/LICENSE">GPL-3.0 license</a></li></ul>
+  <p>Netherrack is an independent project. It is not affiliated with, endorsed by, or sponsored by Mojang Studios or Microsoft. Minecraft is a trademark of Mojang Studios.</p>
+  <p>These docs cover Netherrack 0.1.0-alpha.</p>
+</div></footer>
+</body>
+</html>

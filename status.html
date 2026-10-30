@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Status - Netherrack</title>
+<meta name="description" content="What&#x27;s implemented in Netherrack today, what isn&#x27;t yet, and known limitations of the current alpha.">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#fbf8f6">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#141011">
+<meta property="og:site_name" content="Netherrack">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Status - Netherrack">
+<meta property="og:description" content="What&#x27;s implemented in Netherrack today, what isn&#x27;t yet, and known limitations of the current alpha.">
+<link rel="icon" type="image/png" href="assets/img/favicon.png">
+<link rel="stylesheet" href="assets/css/style.css">
+<script>(function(){var r=document.documentElement;r.classList.add('js');try{var t=localStorage.getItem('netherrack-theme');if(t==='light'||t==='dark'){r.setAttribute('data-theme',t);}}catch(e){}})();</script>
+<script src="assets/js/site.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="header-inner">
+  <a class="brand" href="index.html" aria-label="Netherrack home"><img class="logo logo-light" src="assets/img/logo-light.png" width="1108" height="298" alt="Netherrack"><img class="logo logo-dark" src="assets/img/logo-dark.png" width="1108" height="298" alt="Netherrack"></a>
+  <nav class="site-nav" aria-label="Main"><ul><li><a href="index.html">Home</a></li><li><a href="installation.html">Install</a></li><li><a href="configuration.html">Configure</a></li><li><a href="commands.html">Commands</a></li><li><a href="guides.html">Guides</a></li><li><a href="status.html" aria-current="page">Status</a></li><li><a href="contributing.html">Contribute</a></li></ul></nav>
+  <div class="header-tools"><button class="icon-btn theme-toggle" type="button" aria-label="Switch to dark theme"><svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg></button><a class="icon-btn" href="https://github.com/NetherrackOSS/Netherrack" aria-label="Netherrack on GitHub" title="Netherrack on GitHub"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></div>
+</div></header>
+<div class="page has-toc">
+  <main id="main" class="content">
+
+<h1>Status</h1>
+<p class="lead">Netherrack is in early development. This page is the honest version of &ldquo;what works&rdquo; &mdash; kept in step with the checklist in the project&rsquo;s README.</p>
+
+<div class="callout callout-danger" role="note"><span class="callout-title">Alpha software - don’t rely on it yet</span><p>Expect missing features, bugs and glitches. Keep independent backups of any world you care about, and don’t use Netherrack for a world with important data, or expose it to the internet unsupervised.</p></div>
+
+<h2 id="implemented">Currently implemented</h2>
+<div class="table-wrap"><table><tbody><tr><td><ul><li>✅ Java/Maven project</li><li>✅ Server startup and shutdown lifecycle</li><li>✅ <code>server.properties</code> configuration</li><li>✅ Console command handling</li><li>✅ Colored console logging</li><li>✅ Linux support/testing</li><li>✅ RakNet networking</li><li>✅ Bedrock protocol integration</li><li>✅ Basic Bedrock login handling</li><li>✅ Initial block system</li><li>✅ Grass block</li><li>✅ Cobblestone block</li><li>✅ Chunk loading and generation</li><li>✅ Client connection to a Bedrock client</li><li>✅ Persistent world storage</li></ul></td></tr></tbody></table></div>
+
+<h2 id="not-implemented">Not implemented yet</h2>
+<div class="table-wrap"><table><tbody><tr><td><ul><li>⬜ Complete world system</li><li>⬜ Complete Bedrock play/login flow</li><li>⬜ Entity system</li><li>⬜ Plugin API</li><li>⬜ More blocks and gameplay features</li></ul></td></tr></tbody></table></div>
+
+<h2 id="limitations">Known limitations</h2>
+<p>Beyond the missing features above, a few things that exist are worth knowing the edges of:</p>
+<ul>
+  <li><strong>One Bedrock version.</strong> Netherrack targets Bedrock protocol 2193 (Minecraft 1.26.50). A different client version can still connect &mdash; the server warns and continues &mdash; but may not behave correctly.</li>
+  <li><strong><code>online-mode</code> isn&rsquo;t enforced.</strong> It&rsquo;s written to <code>server.properties</code>, but Netherrack doesn&rsquo;t currently require Xbox Live authentication. A player who isn&rsquo;t signed in can still join.</li>
+  <li><strong><code>difficulty</code> isn&rsquo;t applied.</strong> The world currently always runs on Easy, regardless of this setting.</li>
+  <li><strong>No whitelist.</strong> <code>server-whitelist</code> has a message configured for it in <code>netherrack.yml</code>, but there&rsquo;s no whitelist system to show it yet.</li>
+  <li><strong>No plugin API.</strong> Extending the server currently means changing its source code.</li>
+  <li><strong>No terrain generation.</strong> World content comes from the flat presets, or nothing at all (<code>level-type=default</code>).</li>
+</ul>
+<p>None of this is hidden on purpose &mdash; Netherrack is young, and this list will shrink over time. If you hit something not covered here, <a href="https://github.com/NetherrackOSS/Netherrack/issues">open an issue</a>.</p>
+
+<h2 id="testing">What hasn&rsquo;t been tested</h2>
+<p>From the v0.1.0-alpha release notes, these haven&rsquo;t been put through their paces yet:</p>
+<ul>
+  <li>Stability under prolonged use.</li>
+  <li>Performance with many simultaneous players.</li>
+  <li>Shutdown behavior under every possible condition.</li>
+  <li>World persistence after a crash or a forced process kill.</li>
+  <li>Compatibility with every Bedrock client version.</li>
+  <li>Every gameplay mechanic and block interaction.</li>
+  <li>Behavior under heavy chunk loading.</li>
+</ul>
+<p>This list isn&rsquo;t exhaustive either. If you find something, a bug report with your <code>/version</code> output and console log genuinely helps &mdash; see <a href="contributing.html#bugs">reporting a bug</a>.</p>
+
+<nav class="pager" aria-label="Pages"><a class="prev" href="guides.html"><small>Previous</small>Guides</a><a class="next" href="contributing.html"><small>Next</small>Contribute</a></nav>
+  </main>
+  <aside class="toc" aria-label="On this page" hidden><h2 class="toc-title">On this page</h2><ul id="toc-list"></ul></aside>
+</div>
+<footer class="site-footer"><div class="footer-inner">
+  <ul class="footer-links"><li><a href="https://github.com/NetherrackOSS/Netherrack">GitHub</a></li><li><a href="https://github.com/NetherrackOSS/Netherrack/releases">Releases</a></li><li><a href="https://github.com/NetherrackOSS/Netherrack/issues">Report an issue</a></li><li><a href="https://discord.gg/JFUz2G8H4V">Discord</a></li><li><a href="https://github.com/NetherrackOSS/Netherrack/blob/main/LICENSE">GPL-3.0 license</a></li></ul>
+  <p>Netherrack is an independent project. It is not affiliated with, endorsed by, or sponsored by Mojang Studios or Microsoft. Minecraft is a trademark of Mojang Studios.</p>
+  <p>These docs cover Netherrack 0.1.0-alpha.</p>
+</div></footer>
+</body>
+</html>
