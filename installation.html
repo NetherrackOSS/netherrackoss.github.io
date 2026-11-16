@@ -32,7 +32,7 @@
 <h2 id="requirements">Requirements</h2>
 <ul>
   <li><strong>Java 17 or newer.</strong> Run <code>java --version</code> to check. A JRE is enough to run Netherrack; you need a JDK only to build it yourself.</li>
-  <li><strong>Minecraft: Bedrock Edition 1.26.50.</strong> Netherrack currently speaks that one protocol version. Other versions may fail to connect or behave oddly.</li>
+  <li><strong>Minecraft: Bedrock Edition 1.26.60.</strong> Netherrack currently speaks that one protocol version, and only over <strong>NetherNet</strong>, the transport Bedrock uses since that release. Older clients (and anything expecting RakNet) will not be able to connect.</li>
   <li><strong>UDP port 19132</strong> free. That&rsquo;s the default; you can change it in <a href="configuration.html#server-properties"><code>server.properties</code></a>. If you also run Bedrock Dedicated Server on this machine, it uses the same port.</li>
 </ul>
 <p>Netherrack is mainly tested on Linux. It&rsquo;s plain Java, so it should run anywhere Java 17+ does, but expect rough edges on other systems.</p>
@@ -49,10 +49,14 @@
 <pre><code>java -jar netherrack.jar</code></pre>
 <p>When it starts you should see something like this:</p>
 <span class="code-label">Example output</span>
-<pre><code>[16:01:07] [main] [INFO] Starting Netherrack server version 0.1.0-alpha
-[16:01:07] [main] [INFO] Preparing level "Bedrock level"...
-[16:01:08] [main] [INFO] Opening server on 0.0.0.0:19132...
-[16:01:09] [main] [INFO] Done! Max players: 20. Type "help" for a list of commands.</code></pre>
+<pre><code>[21:25:58] [main] [INFO] Starting Netherrack server version 0.3.0-alpha
+[21:25:58] [main] [INFO] Preparing level "Bedrock level"...
+[21:25:59] [main] [INFO] Loading level "Bedrock level" (generator: terrain)...
+[21:25:59] [main] [INFO] Opening server on 0.0.0.0:19132...
+[21:26:00] [nioEventLoopGroup-2-1] [INFO] NetherNet server channel initialized.
+[21:26:01] [main] [INFO] Preparing spawn area...
+[21:26:01] [main] [INFO] Server thread/Netherrack is now running.
+[21:26:01] [main] [INFO] Done! Max players: 20. Type "help" for a list of commands.</code></pre>
 <p>Once you see <code>Done!</code>, the server is ready for players. Type <code>help</code> in the console for the list of commands.</p>
 <div class="callout callout-warning" role="note"><span class="callout-title">The start scripts need a recent Java</span><p>The download includes <code>start.sh</code> and <code>start.bat</code>, which launch the server with extra JVM flags. One of them, <code>--sun-misc-unsafe-memory-access</code>, only exists on newer Java releases: Java 21 rejects it with <code>Unrecognized option</code> and refuses to start. If a script fails like that, launch the server with <code>java -jar netherrack.jar</code> instead. (The scripts also expect the JAR to be named <code>netherrack.jar</code>.)</p></div>
 
@@ -63,7 +67,7 @@
   <li><strong>License.</strong> Netherrack shows the GNU GPL v3.0 notice. Type <code>y</code> (or <code>yes</code>; <code>s</code>/<code>sim</code> also work) to accept. Anything else cancels startup &mdash; the server can&rsquo;t start without accepting the license.</li>
 </ol>
 <p>The wizard only runs when <code>server.properties</code> is missing, so you&rsquo;ll see it once. Afterwards Netherrack creates these in the folder you ran it from:</p>
-<div class="table-wrap"><table><thead><tr><th scope="col">File or folder</th><th scope="col">What it&rsquo;s for</th></tr></thead><tbody><tr><td><code>server.properties</code></td><td>Main settings: port, player limit, world name, language&hellip; See <a href="configuration.html#server-properties">Configuration</a>.</td></tr><tr><td><code>netherrack.yml</code></td><td>Netherrack&rsquo;s own settings: flat preset, kick messages, debug logging.</td></tr><tr><td><code>permissions.json</code></td><td>Who is an operator, by Xbox Live ID.</td></tr><tr><td><code>worlds/</code></td><td>Your worlds. Each is a folder named after <code>level-name</code>, holding <code>level.dat</code> and a <code>db</code> folder.</td></tr><tr><td><code>logs/latest.log</code></td><td>A plain-text copy of the console for the current run.</td></tr></tbody></table></div>
+<div class="table-wrap"><table><thead><tr><th scope="col">File or folder</th><th scope="col">What it&rsquo;s for</th></tr></thead><tbody><tr><td><code>server.properties</code></td><td>Main settings: port, player limit, world name, language&hellip; See <a href="configuration.html#server-properties">Configuration</a>.</td></tr><tr><td><code>netherrack.yml</code></td><td>Netherrack&rsquo;s own settings: flat preset, kick messages, debug logging.</td></tr><tr><td><code>permissions.json</code></td><td>Who is an operator, by Xbox Live ID.</td></tr><tr><td><code>nethernet-identity.pem</code></td><td>The private key Netherrack identifies itself with on NetherNet. Generated once on first start; deleting it makes the server create a new identity, and clients may then treat it as a different server.</td></tr><tr><td><code>worlds/</code></td><td>Your worlds. Each is a folder named after <code>level-name</code>, holding <code>level.dat</code> and a <code>db</code> folder.</td></tr><tr><td><code>logs/latest.log</code></td><td>A plain-text copy of the console for the current run.</td></tr></tbody></table></div>
 
 <h2 id="stopping">Stopping the server</h2>
 <p>Type <code>stop</code> in the console. Netherrack kicks everyone with a &ldquo;Server closed&rdquo; message, saves the world and exits. It also saves the world if you press <kbd>Ctrl</kbd>+<kbd>C</kbd> or close the console window, and saves periodically while it runs.</p>
@@ -97,7 +101,7 @@ mvnw.cmd clean package</code></pre>
 <footer class="site-footer"><div class="footer-inner">
   <ul class="footer-links"><li><a href="https://github.com/NetherrackOSS/Netherrack">GitHub</a></li><li><a href="https://github.com/NetherrackOSS/Netherrack/releases">Releases</a></li><li><a href="https://github.com/NetherrackOSS/Netherrack/issues">Report an issue</a></li><li><a href="https://discord.gg/JFUz2G8H4V">Discord</a></li><li><a href="https://github.com/NetherrackOSS/Netherrack/blob/main/LICENSE">GPL-3.0 license</a></li></ul>
   <p>Netherrack is an independent project. It is not affiliated with, endorsed by, or sponsored by Mojang Studios or Microsoft. Minecraft is a trademark of Mojang Studios.</p>
-  <p>These docs cover Netherrack 0.1.0-alpha.</p>
+  <p>These docs cover Netherrack 0.3.0-alpha.</p>
 </div></footer>
 </body>
 </html>

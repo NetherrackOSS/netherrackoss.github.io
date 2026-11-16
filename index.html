@@ -38,7 +38,7 @@
     <a class="btn" href="https://discord.gg/JFUz2G8H4V">Join the Discord</a>
   </p>
   <ul class="chips" aria-label="At a glance">
-    <li>Alpha</li><li>Java 17+</li><li>Bedrock 1.26.50</li><li>GPL-3.0</li>
+    <li>Alpha</li><li>Java 17+</li><li>Bedrock 1.26.60</li><li>GPL-3.0</li>
   </ul>
 </section>
 
@@ -49,9 +49,11 @@
 <h2 id="features">What works today</h2>
 <p class="section-intro">Netherrack is young, but it already covers the basics of running a Bedrock server.</p>
 <div class="cards">
-  <div class="card"><h3>Join and play</h3><p>Bedrock clients can connect, move around, and break and place blocks. Gameplay is basic for now &mdash; see <a href="status.html">what&rsquo;s still missing</a>.</p></div>
+  <div class="card"><h3>Join and play</h3><p>Bedrock clients connect over NetherNet and can move around, break and place blocks, eat food, and take damage from falls, lava and more &mdash; with health, hunger and real death. Gameplay is basic for now &mdash; see <a href="status.html">what&rsquo;s still missing</a>.</p></div>
+  <div class="card"><h3>Generated terrain</h3><p>The default world type generates rolling hills, valleys, lakes with sandy shores and scattered oak trees, all from the world&rsquo;s seed &mdash; new with every world.</p></div>
+  <div class="card"><h3>Flat world presets</h3><p>Nine flat presets, from Classic Flat to The Void, for when you&rsquo;d rather build on solid ground. <a href="configuration.html#presets">See them all</a>.</p></div>
   <div class="card"><h3>Worlds that persist</h3><p>Worlds are saved in Bedrock&rsquo;s own LevelDB format, so they survive restarts. Each one lives in <code>worlds/&lt;level-name&gt;/</code>.</p></div>
-  <div class="card"><h3>Flat world presets</h3><p>Nine flat presets, from Classic Flat to The Void, chosen with one line in <code>netherrack.yml</code>. <a href="configuration.html#presets">See them all</a>.</p></div>
+  <div class="card"><h3>Items in the world</h3><p>Dropped items fall, slide to a stop and can be picked up again &mdash; and when a player dies, everything they carry drops where they fell.</p></div>
   <div class="card"><h3>Operators and permissions</h3><p>Five permission levels, <code>/op</code> and <code>/deop</code>, and a <code>permissions.json</code> that remembers operators by Xbox Live ID.</p></div>
   <div class="card"><h3>Chat and commands</h3><p>In-game chat with yellow join and leave messages. Commands work from both the console and the chat box. <a href="commands.html">Command reference</a>.</p></div>
   <div class="card"><h3>A friendly console</h3><p>Colored logs, a plain-text copy in <code>logs/latest.log</code>, and a console in English or Brazilian Portuguese.</p></div>
@@ -75,8 +77,7 @@
 <div class="narrow">
 <ul>
   <li>A plugin API.</li>
-  <li>An entity system (mobs and the like).</li>
-  <li>Generated terrain &mdash; today, worlds are flat presets or empty.</li>
+  <li>Mobs &mdash; the only entities in the world so far are items a player dropped.</li>
   <li>A finished login and play flow.</li>
 </ul>
 <p>The <a href="status.html">Status page</a> has the full checklist and the known limitations.</p>
@@ -93,7 +94,7 @@
 <footer class="site-footer"><div class="footer-inner">
   <ul class="footer-links"><li><a href="https://github.com/NetherrackOSS/Netherrack">GitHub</a></li><li><a href="https://github.com/NetherrackOSS/Netherrack/releases">Releases</a></li><li><a href="https://github.com/NetherrackOSS/Netherrack/issues">Report an issue</a></li><li><a href="https://discord.gg/JFUz2G8H4V">Discord</a></li><li><a href="https://github.com/NetherrackOSS/Netherrack/blob/main/LICENSE">GPL-3.0 license</a></li></ul>
   <p>Netherrack is an independent project. It is not affiliated with, endorsed by, or sponsored by Mojang Studios or Microsoft. Minecraft is a trademark of Mojang Studios.</p>
-  <p>These docs cover Netherrack 0.1.0-alpha.</p>
+  <p>These docs cover Netherrack 0.3.0-alpha.</p>
 </div></footer>
 </body>
 </html>

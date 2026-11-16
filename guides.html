@@ -36,13 +36,13 @@
   <li><p>Set the <strong>Server Address</strong> to the computer&rsquo;s IP address (<code>localhost</code> if Minecraft is on the same computer), and the <strong>Port</strong> to the one in <code>server.properties</code> (<code>19132</code> by default).</p></li>
   <li><p>Save, then tap the server to join.</p></li>
 </ol>
-<div class="callout" role="note"><span class="callout-title">Only one Bedrock version</span><p>Netherrack currently speaks Bedrock protocol version 2193 (Minecraft 1.26.50) specifically. A client on a different version can still connect &mdash; the server logs a warning and carries on &mdash; but things may not work correctly.</p></div>
+<div class="callout" role="note"><span class="callout-title">Only one Bedrock version</span><p>Netherrack currently speaks Bedrock protocol version 2225 (Minecraft 1.26.60) specifically, over NetherNet. The protocol has to match exactly, so clients on other versions can&rsquo;t connect.</p></div>
 
 <h2 id="world-type">Choosing a world type</h2>
 <p>Pick this <strong>before</strong> the world is first created &mdash; a level keeps the type and preset it started with, and changing the settings afterwards has no effect on it.</p>
 <ol class="steps">
   <li><p>Stop the server if it&rsquo;s running.</p></li>
-  <li><p>In <code>server.properties</code>, set <code>level-type=flat</code> for a flat world (the only option with real content today), or leave it as <code>default</code> for an empty world.</p></li>
+  <li><p>In <code>server.properties</code>, set <code>level-type=flat</code> for a flat world, or leave it as <code>default</code> for generated terrain &mdash; hills, valleys, lakes and trees, new every seed.</p></li>
   <li><p>For a flat world, open <code>netherrack.yml</code> and set <code>level.preset-type</code> to one of the <a href="configuration.html#presets">preset names</a>, for example <code>"The Void"</code>.</p></li>
   <li><p>If a world with that <code>level-name</code> doesn&rsquo;t exist yet, start the server and it&rsquo;s created with that preset.</p></li>
 </ol>
@@ -98,7 +98,7 @@
 <footer class="site-footer"><div class="footer-inner">
   <ul class="footer-links"><li><a href="https://github.com/NetherrackOSS/Netherrack">GitHub</a></li><li><a href="https://github.com/NetherrackOSS/Netherrack/releases">Releases</a></li><li><a href="https://github.com/NetherrackOSS/Netherrack/issues">Report an issue</a></li><li><a href="https://discord.gg/JFUz2G8H4V">Discord</a></li><li><a href="https://github.com/NetherrackOSS/Netherrack/blob/main/LICENSE">GPL-3.0 license</a></li></ul>
   <p>Netherrack is an independent project. It is not affiliated with, endorsed by, or sponsored by Mojang Studios or Microsoft. Minecraft is a trademark of Mojang Studios.</p>
-  <p>These docs cover Netherrack 0.1.0-alpha.</p>
+  <p>These docs cover Netherrack 0.3.0-alpha.</p>
 </div></footer>
 </body>
 </html>
