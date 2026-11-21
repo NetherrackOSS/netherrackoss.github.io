@@ -20,7 +20,7 @@
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header"><div class="header-inner">
   <a class="brand" href="index.html" aria-label="Netherrack home"><img class="logo logo-light" src="assets/img/logo-light.png" width="1108" height="298" alt="Netherrack"><img class="logo logo-dark" src="assets/img/logo-dark.png" width="1108" height="298" alt="Netherrack"></a>
-  <nav class="site-nav" aria-label="Main"><ul><li><a href="index.html" aria-current="page">Home</a></li><li><a href="installation.html">Install</a></li><li><a href="configuration.html">Configure</a></li><li><a href="commands.html">Commands</a></li><li><a href="guides.html">Guides</a></li><li><a href="status.html">Status</a></li><li><a href="contributing.html">Contribute</a></li></ul></nav>
+  <nav class="site-nav" aria-label="Main"><ul><li><a href="index.html" aria-current="page">Home</a></li><li><a href="installation.html">Install</a></li><li><a href="configuration.html">Configure</a></li><li><a href="commands.html">Commands</a></li><li><a href="plugins.html">Plugins</a></li><li><a href="guides.html">Guides</a></li><li><a href="status.html">Status</a></li><li><a href="contributing.html">Contribute</a></li></ul></nav>
   <div class="header-tools"><button class="icon-btn theme-toggle" type="button" aria-label="Switch to dark theme"><svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg></button><a class="icon-btn" href="https://github.com/NetherrackOSS/Netherrack" aria-label="Netherrack on GitHub" title="Netherrack on GitHub"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></div>
 </div></header>
 <div class="page home">
@@ -38,25 +38,26 @@
     <a class="btn" href="https://discord.gg/JFUz2G8H4V">Join the Discord</a>
   </p>
   <ul class="chips" aria-label="At a glance">
-    <li>Alpha</li><li>Java 17+</li><li>Bedrock 1.26.60</li><li>GPL-3.0</li>
+    <li>Beta</li><li>Java 17+</li><li>Bedrock 1.26.60</li><li>GPL-3.0</li>
   </ul>
 </section>
 
 <div class="narrow">
-<div class="callout callout-warning" role="note"><span class="callout-title">Netherrack is in alpha</span><p>Expect missing features, bugs and glitches, and <strong>back up any world you care about</strong>. Don&rsquo;t expose a Netherrack server to the internet yet &mdash; see <a href="status.html#limitations">known limitations</a>.</p></div>
+<div class="callout callout-warning" role="note"><span class="callout-title">Netherrack is an experimental beta</span><p>Expect missing features, bugs and glitches, and <strong>back up any world you care about</strong>. Don&rsquo;t expose a Netherrack server to the internet yet &mdash; see <a href="status.html#limitations">known limitations</a>.</p></div>
 </div>
 
 <h2 id="features">What works today</h2>
-<p class="section-intro">Netherrack is young, but it already covers the basics of running a Bedrock server.</p>
+<p class="section-intro">Netherrack is young, but it already covers the basics of running a Bedrock server, plus a small plugin API.</p>
 <div class="cards">
-  <div class="card"><h3>Join and play</h3><p>Bedrock clients connect over NetherNet and can move around, break and place blocks, eat food, and take damage from falls, lava and more &mdash; with health, hunger and real death. Gameplay is basic for now &mdash; see <a href="status.html">what&rsquo;s still missing</a>.</p></div>
-  <div class="card"><h3>Generated terrain</h3><p>The default world type generates rolling hills, valleys, lakes with sandy shores and scattered oak trees, all from the world&rsquo;s seed &mdash; new with every world.</p></div>
+  <div class="card"><h3>Join and play</h3><p>Bedrock clients connect over NetherNet and can move around, fight other players, break and place blocks, middle-click to pick a block, craft in the 2&times;2 inventory or a right-clicked 3&times;3 table, eat food, and take damage from falls, lava and more &mdash; with health, hunger and real death. Gameplay is basic for now &mdash; see <a href="status.html">what&rsquo;s still missing</a>.</p></div>
+  <div class="card"><h3>Generated terrain</h3><p>The default world type generates rolling hills, valleys, lakes with sandy shores and scattered oak trees, all from the world&rsquo;s seed. Terrain is still plains-only &mdash; no caves, ores, flowers or multiple biomes yet.</p></div>
   <div class="card"><h3>Flat world presets</h3><p>Nine flat presets, from Classic Flat to The Void, for when you&rsquo;d rather build on solid ground. <a href="configuration.html#presets">See them all</a>.</p></div>
-  <div class="card"><h3>Worlds that persist</h3><p>Worlds are saved in Bedrock&rsquo;s own LevelDB format, so they survive restarts. Each one lives in <code>worlds/&lt;level-name&gt;/</code>.</p></div>
+  <div class="card"><h3>Worlds that persist</h3><p>Worlds are saved in Bedrock&rsquo;s own LevelDB format and autosaved every 30 seconds. Each one lives in <code>worlds/&lt;level-name&gt;/</code>.</p></div>
   <div class="card"><h3>Items in the world</h3><p>Dropped items fall, slide to a stop and can be picked up again &mdash; and when a player dies, everything they carry drops where they fell.</p></div>
-  <div class="card"><h3>Operators and permissions</h3><p>Five permission levels, <code>/op</code> and <code>/deop</code>, and a <code>permissions.json</code> that remembers operators by Xbox Live ID.</p></div>
-  <div class="card"><h3>Chat and commands</h3><p>In-game chat with yellow join and leave messages. Commands work from both the console and the chat box. <a href="commands.html">Command reference</a>.</p></div>
-  <div class="card"><h3>A friendly console</h3><p>Colored logs, a plain-text copy in <code>logs/latest.log</code>, and a console in English or Brazilian Portuguese.</p></div>
+  <div class="card"><h3>Operators and permissions</h3><p>Five permission levels, <code>/op</code> and <code>/deop</code>, a <code>permissions.json</code> that remembers operators by Xbox Live ID, and API permission nodes for plugins.</p></div>
+  <div class="card"><h3>Plugins</h3><p>Jars in <code>plugins/</code> get lifecycle callbacks, events, commands, scheduled tasks and a small player/world API. <a href="plugins.html">Write a plugin</a>.</p></div>
+  <div class="card"><h3>Chat and commands</h3><p>In-game chat with yellow join and leave messages. Commands work from both the console and the chat box, including <code>/clear</code>, <code>/kick</code>, <code>/plugins</code> and <code>/reload</code>. <a href="commands.html">Command reference</a>.</p></div>
+  <div class="card"><h3>A friendly console</h3><p>Customizable per-level formats and colors, a plain-text copy in <code>logs/latest.log</code>, logging reload with <code>/reload</code>, and a console in English or Brazilian Portuguese.</p></div>
 </div>
 
 <h2 id="quick-start">Try it in three steps</h2>
@@ -68,6 +69,7 @@
   <li><p><strong>Run it</strong> from that folder:</p>
   <pre><code>java -jar netherrack.jar</code></pre>
   <p>Choose a language, accept the license, and wait for the <code>Done!</code> line. Then add a server in Minecraft: Bedrock Edition using your computer&rsquo;s address and port <code>19132</code>.</p>
+  <p>On Linux or macOS, the NetherNet native library may need the JVM flags shown in the <a href="installation.html#run">installation guide</a>.</p>
   <p>Full details: <a href="installation.html">Installation</a> and <a href="guides.html#join">Joining from Minecraft</a>.</p></li>
 </ol>
 </div>
@@ -76,8 +78,10 @@
 <p class="section-intro">Netherrack is built from scratch and still growing. Things you won&rsquo;t find yet:</p>
 <div class="narrow">
 <ul>
-  <li>A plugin API.</li>
+  <li>Runtime plugin enable, disable and reload &mdash; adding or changing a jar still needs a restart.</li>
   <li>Mobs &mdash; the only entities in the world so far are items a player dropped.</li>
+  <li>Caves, ores, flowers and multiple biomes in generated terrain.</li>
+  <li>Furnace, stonecutter and smithing screens, and shift-click crafting a stack.</li>
   <li>A finished login and play flow.</li>
 </ul>
 <p>The <a href="status.html">Status page</a> has the full checklist and the known limitations.</p>
@@ -85,7 +89,7 @@
 
 <h2 id="built-on">Built on open source</h2>
 <div class="narrow">
-<p>Netherrack uses open source <a href="https://github.com/CloudburstMC">CloudburstMC</a> components for networking and the Bedrock protocol, and is released under the GNU General Public License v3.0. It&rsquo;s an independent project, not affiliated with Mojang Studios or Microsoft.</p>
+<p>Netherrack uses open source <a href="https://github.com/CloudburstMC">CloudburstMC</a> components for networking and the Bedrock protocol, plus libdatachannel-java, leveldb-mcpe-java and bundled vanilla data from several community projects. See the server&rsquo;s <a href="https://github.com/NetherrackOSS/Netherrack/blob/main/THIRD_PARTY_NOTICES.md">third-party notices</a>. Netherrack is released under the GNU General Public License v3.0 and is an independent project, not affiliated with Mojang Studios or Microsoft.</p>
 <p>Want to help? Read <a href="contributing.html">how to contribute</a>.</p>
 </div>
 
@@ -94,7 +98,7 @@
 <footer class="site-footer"><div class="footer-inner">
   <ul class="footer-links"><li><a href="https://github.com/NetherrackOSS/Netherrack">GitHub</a></li><li><a href="https://github.com/NetherrackOSS/Netherrack/releases">Releases</a></li><li><a href="https://github.com/NetherrackOSS/Netherrack/issues">Report an issue</a></li><li><a href="https://discord.gg/JFUz2G8H4V">Discord</a></li><li><a href="https://github.com/NetherrackOSS/Netherrack/blob/main/LICENSE">GPL-3.0 license</a></li></ul>
   <p>Netherrack is an independent project. It is not affiliated with, endorsed by, or sponsored by Mojang Studios or Microsoft. Minecraft is a trademark of Mojang Studios.</p>
-  <p>These docs cover Netherrack 0.3.0-alpha.</p>
+  <p>These docs cover Netherrack v0.4.0-beta.</p>
 </div></footer>
 </body>
 </html>

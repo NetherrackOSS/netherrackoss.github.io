@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Guides - Netherrack</title>
-<meta name="description" content="Step-by-step guides for Netherrack: joining from Minecraft, choosing a world type, backups, making an operator, changing the language, and opening the server to the internet.">
+<meta name="description" content="Step-by-step guides for Netherrack: joining from Minecraft, choosing a world type, backups, operators, installing plugins, reloading logging, changing the language, and opening the server to the internet.">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fbf8f6">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#141011">
 <meta property="og:site_name" content="Netherrack">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Guides - Netherrack">
-<meta property="og:description" content="Step-by-step guides for Netherrack: joining from Minecraft, choosing a world type, backups, making an operator, changing the language, and opening the server to the internet.">
+<meta property="og:description" content="Step-by-step guides for Netherrack: joining from Minecraft, choosing a world type, backups, operators, installing plugins, reloading logging, changing the language, and opening the server to the internet.">
 <link rel="icon" type="image/png" href="assets/img/favicon.png">
 <link rel="stylesheet" href="assets/css/style.css">
 <script>(function(){var r=document.documentElement;r.classList.add('js');try{var t=localStorage.getItem('netherrack-theme');if(t==='light'||t==='dark'){r.setAttribute('data-theme',t);}}catch(e){}})();</script>
@@ -20,7 +20,7 @@
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header"><div class="header-inner">
   <a class="brand" href="index.html" aria-label="Netherrack home"><img class="logo logo-light" src="assets/img/logo-light.png" width="1108" height="298" alt="Netherrack"><img class="logo logo-dark" src="assets/img/logo-dark.png" width="1108" height="298" alt="Netherrack"></a>
-  <nav class="site-nav" aria-label="Main"><ul><li><a href="index.html">Home</a></li><li><a href="installation.html">Install</a></li><li><a href="configuration.html">Configure</a></li><li><a href="commands.html">Commands</a></li><li><a href="guides.html" aria-current="page">Guides</a></li><li><a href="status.html">Status</a></li><li><a href="contributing.html">Contribute</a></li></ul></nav>
+  <nav class="site-nav" aria-label="Main"><ul><li><a href="index.html">Home</a></li><li><a href="installation.html">Install</a></li><li><a href="configuration.html">Configure</a></li><li><a href="commands.html">Commands</a></li><li><a href="plugins.html">Plugins</a></li><li><a href="guides.html" aria-current="page">Guides</a></li><li><a href="status.html">Status</a></li><li><a href="contributing.html">Contribute</a></li></ul></nav>
   <div class="header-tools"><button class="icon-btn theme-toggle" type="button" aria-label="Switch to dark theme"><svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg></button><a class="icon-btn" href="https://github.com/NetherrackOSS/Netherrack" aria-label="Netherrack on GitHub" title="Netherrack on GitHub"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></div>
 </div></header>
 <div class="page has-toc">
@@ -44,7 +44,7 @@
   <li><p>Stop the server if it&rsquo;s running.</p></li>
   <li><p>In <code>server.properties</code>, set <code>level-type=flat</code> for a flat world, or leave it as <code>default</code> for generated terrain &mdash; hills, valleys, lakes and trees, new every seed.</p></li>
   <li><p>For a flat world, open <code>netherrack.yml</code> and set <code>level.preset-type</code> to one of the <a href="configuration.html#presets">preset names</a>, for example <code>"The Void"</code>.</p></li>
-  <li><p>If a world with that <code>level-name</code> doesn&rsquo;t exist yet, start the server and it&rsquo;s created with that preset.</p></li>
+  <li><p>If a world with that <code>level-name</code> doesn&rsquo;t exist yet, start the server and it&rsquo;s created with that preset. Generated terrain worlds search outward from the origin for dry ground to spawn on.</p></li>
 </ol>
 <div class="callout callout-tip" role="note"><span class="callout-title">Want an existing world again?</span><p>If you want to go back to a world you&rsquo;ve used before, set <code>level-name</code> to its name instead. Netherrack loads it as it is; <code>level-type</code> and the preset are only used when creating a new one.</p></div>
 
@@ -63,10 +63,10 @@
   <li><p>Copy the whole <code>worlds/&lt;level-name&gt;/</code> folder somewhere safe.</p></li>
 </ol>
 <p>To restore it, stop the server, replace the folder with your backup, and start it again.</p>
-<div class="callout callout-warning" role="note"><span class="callout-title">Back up before updating</span><p>Do this before installing a newer Netherrack build, especially while it&rsquo;s in alpha &mdash; see <a href="installation.html#updating">Updating</a>.</p></div>
+<div class="callout callout-warning" role="note"><span class="callout-title">Back up before updating</span><p>Do this before installing a newer Netherrack build, especially while it&rsquo;s in beta &mdash; see <a href="installation.html#updating">Updating</a>.</p></div>
 
 <h2 id="operators">Making the first operator</h2>
-<p>New players start at the level in <code>default-player-permission-level</code> (<code>member</code> by default), which isn&rsquo;t enough for commands like <code>/gamemode</code>. To promote someone:</p>
+<p>New players start at the level in <code>default-player-permission-level</code> (<code>member</code> by default). Visitors and members can run only level-0 commands; operators get the level in <code>op-permission-level</code> (<code>2</code> by default), which unlocks <code>/gamemode</code>, <code>/give</code>, <code>/clear</code>, <code>/kill</code>, <code>/kick</code> and <code>/tp</code>. To promote someone:</p>
 <ol class="steps">
   <li><p>Have them join the server, so Netherrack knows their Xbox Live ID.</p></li>
   <li><p>In the server console, run:</p>
@@ -83,22 +83,38 @@
 </ol>
 <p>This only changes the <em>server&rsquo;s own</em> messages. Each player&rsquo;s Minecraft client always shows the game itself in whatever language that client is set to.</p>
 
+<h2 id="plugin-install">Installing a plugin</h2>
+<ol class="steps">
+  <li><p>Build or download a plugin jar. Plugins use Java 17+ and declare <code>api-version: 0.4.0</code> in <code>plugin.yml</code>.</p></li>
+  <li><p>Stop the server and copy the jar into the <code>plugins/</code> folder next to <code>netherrack.jar</code>.</p></li>
+  <li><p>Start the server. Look for <code>Loaded plugin &lt;name&gt; v&lt;version&gt;</code> in the log, then run <code>/plugins</code> to see the list.</p></li>
+</ol>
+<p>A plugin&rsquo;s first start creates <code>plugins/&lt;name&gt;/config.yml</code> when it saves its defaults. Runtime plugin enable, disable and reload are not supported yet, so restart after adding, removing or updating a jar. The full API and Maven coordinates are on the <a href="plugins.html">Plugins</a> page; the server repository also includes an <code>examples/hello-plugin</code> project.</p>
+
+<h2 id="reload-logging">Reloading logging</h2>
+<ol class="steps">
+  <li><p>Edit <code>logs.debug</code>, <code>logging.*</code> or <code>labels.*</code> in <a href="configuration.html#netherrack-yml"><code>netherrack.yml</code></a>.</p></li>
+  <li><p>Run <code>/reload</code> (alias <code>rl</code>, permission level 4) in the console or chat.</p></li>
+  <li><p>Check the console and <code>logs/latest.log</code>. DEBUG lines stay out of the console unless <code>logging.console-debug: true</code>, and per-level <code>*-enabled</code> keys hide lines on the console without removing them from the log file.</p></li>
+</ol>
+<p><code>/reload</code> only re-reads logging settings; most other options still need a restart, and plugin jars are never reloaded at runtime.</p>
+
 <h2 id="port-forward">Letting friends connect over the internet</h2>
 <p>By default the server is only reachable on your local network. To open it up further:</p>
 <ol class="steps">
-  <li><p>Forward UDP port <code>19132</code> (or whatever you set <code>server-port</code> to) on your router to the computer running Netherrack.</p></li>
+  <li><p>Forward port <code>19132</code> (or whatever you set <code>server-port</code> to) on your router to the computer running Netherrack. NetherNet uses HTTP signaling and WebRTC game traffic, so check both TCP and UDP.</p></li>
   <li><p>Share your public IP address (and the port, if you changed it) with the people you want to join.</p></li>
 </ol>
-<div class="callout callout-danger" role="note"><span class="callout-title">Alpha software, open to the internet</span><p>Netherrack hasn&rsquo;t been hardened for public, unsupervised access &mdash; see <a href="status.html#limitations">known limitations</a>, in particular that Xbox Live authentication isn&rsquo;t enforced yet. Only do this with people you trust, and keep backups.</p></div>
+<div class="callout callout-danger" role="note"><span class="callout-title">Experimental beta software, open to the internet</span><p>Netherrack hasn&rsquo;t been hardened for public, unsupervised access &mdash; see <a href="status.html#limitations">known limitations</a>. The <code>online-mode</code> key is ignored as a toggle; authentication comes from NetherNet and login-chain validation. Only do this with people you trust, and keep backups.</p></div>
 
-<nav class="pager" aria-label="Pages"><a class="prev" href="commands.html"><small>Previous</small>Commands</a><a class="next" href="status.html"><small>Next</small>Status</a></nav>
+<nav class="pager" aria-label="Pages"><a class="prev" href="plugins.html"><small>Previous</small>Plugins</a><a class="next" href="status.html"><small>Next</small>Status</a></nav>
   </main>
   <aside class="toc" aria-label="On this page" hidden><h2 class="toc-title">On this page</h2><ul id="toc-list"></ul></aside>
 </div>
 <footer class="site-footer"><div class="footer-inner">
   <ul class="footer-links"><li><a href="https://github.com/NetherrackOSS/Netherrack">GitHub</a></li><li><a href="https://github.com/NetherrackOSS/Netherrack/releases">Releases</a></li><li><a href="https://github.com/NetherrackOSS/Netherrack/issues">Report an issue</a></li><li><a href="https://discord.gg/JFUz2G8H4V">Discord</a></li><li><a href="https://github.com/NetherrackOSS/Netherrack/blob/main/LICENSE">GPL-3.0 license</a></li></ul>
   <p>Netherrack is an independent project. It is not affiliated with, endorsed by, or sponsored by Mojang Studios or Microsoft. Minecraft is a trademark of Mojang Studios.</p>
-  <p>These docs cover Netherrack 0.3.0-alpha.</p>
+  <p>These docs cover Netherrack v0.4.0-beta.</p>
 </div></footer>
 </body>
 </html>

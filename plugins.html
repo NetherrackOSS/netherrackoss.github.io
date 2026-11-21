@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plugins - Netherrack</title>
+<meta name="description" content="Write plugins for Netherrack v0.4.0-beta: Maven setup, plugin.yml, lifecycle events, commands, permissions, the scheduler and the player/world API.">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#fbf8f6">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#141011">
+<meta property="og:site_name" content="Netherrack">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Plugins - Netherrack">
+<meta property="og:description" content="Write plugins for Netherrack v0.4.0-beta: Maven setup, plugin.yml, lifecycle events, commands, permissions, the scheduler and the player/world API.">
+<link rel="icon" type="image/png" href="assets/img/favicon.png">
+<link rel="stylesheet" href="assets/css/style.css">
+<script>(function(){var r=document.documentElement;r.classList.add('js');try{var t=localStorage.getItem('netherrack-theme');if(t==='light'||t==='dark'){r.setAttribute('data-theme',t);}}catch(e){}})();</script>
+<script src="assets/js/site.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="header-inner">
+  <a class="brand" href="index.html" aria-label="Netherrack home"><img class="logo logo-light" src="assets/img/logo-light.png" width="1108" height="298" alt="Netherrack"><img class="logo logo-dark" src="assets/img/logo-dark.png" width="1108" height="298" alt="Netherrack"></a>
+  <nav class="site-nav" aria-label="Main"><ul><li><a href="index.html">Home</a></li><li><a href="installation.html">Install</a></li><li><a href="configuration.html">Configure</a></li><li><a href="commands.html">Commands</a></li><li><a href="plugins.html" aria-current="page">Plugins</a></li><li><a href="guides.html">Guides</a></li><li><a href="status.html">Status</a></li><li><a href="contributing.html">Contribute</a></li></ul></nav>
+  <div class="header-tools"><button class="icon-btn theme-toggle" type="button" aria-label="Switch to dark theme"><svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg></button><a class="icon-btn" href="https://github.com/NetherrackOSS/Netherrack" aria-label="Netherrack on GitHub" title="Netherrack on GitHub"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></div>
+</div></header>
+<div class="page has-toc">
+  <main id="main" class="content">
+
+<h1>Plugins</h1>
+<p class="lead">Netherrack v0.4.0-beta has a small Java plugin API. Plugins get lifecycle callbacks, events, commands, permission nodes, scheduled tasks, and a narrow view of players and blocks.</p>
+
+<div class="callout callout-warning" role="note"><span class="callout-title">Experimental API</span><p>The API is new and may change between releases. Plugins declare which API version they were built for, and the server checks it before loading them. A plugin built for 0.4.x runs on any 0.4.x server, but not on 0.3.x or 1.x.</p></div>
+
+<h2 id="installing">Installing a plugin</h2>
+<ol class="steps">
+  <li><p>Build or download a plugin jar. Don&rsquo;t bundle the API into it &mdash; the server supplies that.</p></li>
+  <li><p>Stop the server and copy the jar into <code>plugins/</code> next to <code>netherrack.jar</code>. Netherrack creates the folder on first start if it doesn&rsquo;t exist.</p></li>
+  <li><p>Start the server. Each plugin gets a data folder at <code>plugins/&lt;plugin-name&gt;/</code> and a logger whose lines are prefixed with the plugin name. A <code>config.yml</code> is written there when the plugin calls <code>saveConfig()</code>.</p></li>
+  <li><p>Run <code>/plugins</code> to see what loaded. The list includes disabled plugins, so look at the startup log for load errors too.</p></li>
+</ol>
+<p>Jar changes need a restart: runtime plugin enable, disable and reload are not implemented yet. Duplicate plugin names are skipped, and a failing callback disables only that plugin and anything that depends on it.</p>
+
+<h2 id="maven">Setting up a plugin project</h2>
+<p>Use Java 17 or newer. The API lives under the package root <code>com.netherrack.api.*</code> and is published by JitPack from the <code>v0.4.0-SNAPSHOT</code> tag; the version plugins declare is <code>0.4.0</code>. In short, the Maven coordinate is <code>com.github.NetherrackOSS:NetherrackAPI:v0.4.0-SNAPSHOT</code>. Keep the dependency at <code>provided</code> scope so the jar stays small and uses the copy shaded into <code>netherrack.jar</code>.</p>
+<span class="code-label">pom.xml</span>
+<pre><code>&lt;repositories&gt;
+  &lt;repository&gt;
+    &lt;id&gt;jitpack.io&lt;/id&gt;
+    &lt;url&gt;https://jitpack.io&lt;/url&gt;
+  &lt;/repository&gt;
+&lt;/repositories&gt;
+
+&lt;dependencies&gt;
+  &lt;dependency&gt;
+    &lt;groupId&gt;com.github.NetherrackOSS&lt;/groupId&gt;
+    &lt;artifactId&gt;NetherrackAPI&lt;/artifactId&gt;
+    &lt;version&gt;v0.4.0-SNAPSHOT&lt;/version&gt;
+    &lt;scope&gt;provided&lt;/scope&gt;
+  &lt;/dependency&gt;
+&lt;/dependencies&gt;</code></pre>
+<p>The full example plugin in the server repository shows every feature described on this page: <a href="https://github.com/NetherrackOSS/Netherrack/tree/v0.4.0-beta/examples/hello-plugin">examples/hello-plugin</a>.</p>
+
+<h2 id="descriptor">plugin.yml</h2>
+<p>Every plugin jar needs a <code>plugin.yml</code> at its root. Only <code>name</code>, <code>version</code> and <code>main</code> are required. The loader understands simple YAML: top-level <code>key: value</code> lines, inline lists such as <code>[hi]</code> or indented <code>- hi</code> lists, and the nested <code>commands:</code> block. Unknown keys are ignored.</p>
+<span class="code-label">plugin.yml</span>
+<pre><code>name: HelloPlugin
+version: 1.0.0
+api-version: 0.4.0
+main: com.example.hello.HelloPlugin
+description: A small example plugin
+author: You
+load: POSTWORLD
+depend: [OtherPlugin]
+softdepend: [OptionalPlugin]
+loadbefore: [LaterPlugin]
+commands:
+  hello:
+    description: Sends a greeting
+    aliases: [hi]
+    usage: /hello [name]
+    permission: hello.use</code></pre>
+<div class="table-wrap"><table><thead><tr><th scope="col">Key</th><th scope="col">Meaning</th></tr></thead><tbody><tr><td><code>name</code>, <code>version</code>, <code>main</code></td><td>Required. The name may contain letters, digits, dots, dashes and underscores; <code>main</code> is the full class implementing <code>Plugin</code>, normally by extending <code>PluginBase</code>.</td></tr><tr><td><code>api-version</code></td><td>The API version the plugin targets, <code>0.4.0</code>. Defaults to the API jar&rsquo;s current version if omitted.</td></tr><tr><td><code>load</code></td><td><code>STARTUP</code> or <code>POSTWORLD</code>. Defaults to <code>POSTWORLD</code>; see <a href="#lifecycle">Lifecycle</a>.</td></tr><tr><td><code>depend</code>, <code>softdepend</code>, <code>loadbefore</code></td><td>Ordering hints. A missing hard dependency stops that plugin from enabling; soft dependencies and loadbefore only affect order.</td></tr><tr><td><code>commands</code></td><td>Command declarations with <code>description</code>, <code>aliases</code>, <code>usage</code> and <code>permission</code>. There is no <code>permissions:</code> block in this API version &mdash; register nodes in code instead.</td></tr></tbody></table></div>
+
+<h2 id="lifecycle">Lifecycle and load order</h2>
+<p>Extend <code>com.netherrack.api.plugin.PluginBase</code>. It supplies the config, logger, server, data folder and scheduler; the three callbacks do nothing unless you override them.</p>
+<span class="code-label">HelloPlugin.java</span>
+<pre><code>package com.example.hello;
+
+import com.netherrack.api.plugin.PluginBase;
+
+public final class HelloPlugin extends PluginBase {
+
+    @Override
+    public void onLoad() {
+        getLogger().info("HelloPlugin loaded");
+    }
+
+    @Override
+    public void onEnable() {
+        String greeting = getConfig().get("greeting", "Hello!");
+        getConfig().set("greeting", greeting);
+        saveConfig();
+        getLogger().info("Greeting: " + greeting);
+    }
+
+    @Override
+    public void onDisable() {
+        getLogger().info("HelloPlugin disabled");
+    }
+}</code></pre>
+<p>The server walks these phases in order:</p>
+<ol class="steps">
+  <li><p>Jars in <code>plugins/</code> are read and sorted by load order and dependencies. Invalid descriptors and duplicate names are reported and skipped.</p></li>
+  <li><p><code>STARTUP</code> plugins get <code>onLoad()</code> before the world and network listener exist. Use this only for state the plugin can prepare on its own.</p></li>
+  <li><p>The world, listener and ticking start. <code>POSTWORLD</code> plugins then get <code>onLoad()</code>.</p></li>
+  <li><p>Each plugin&rsquo;s declared commands are registered, then <code>onEnable()</code> runs in dependency order. Register listeners, permissions and tasks here.</p></li>
+  <li><p><code>ServerStartEvent</code> fires after every plugin is enabled, so listeners registered in <code>onEnable()</code> hear it.</p></li>
+  <li><p>On shutdown, <code>ServerStopEvent</code> fires first, then <code>onDisable()</code> runs in reverse order. Commands, listeners, permissions and tasks are removed automatically.</p></li>
+</ol>
+<p><code>getConfig()</code> is a small YAML file at <code>plugins/&lt;name&gt;/config.yml</code>. It supports <code>get(key, fallback)</code> and <code>set(key, value)</code>; call <code>saveConfig()</code> to write changes. <code>getLogger()</code> writes through the server&rsquo;s normal logging settings, so a plugin&rsquo;s lines obey the same formats and colors as everything else.</p>
+
+<h2 id="events">Events</h2>
+<p>Register a class implementing <code>Listener</code> from <code>onEnable()</code>, then mark its public methods with <code>@EventHandler</code>. A handler for a base class can handle a whole family of events: a handler for <code>PlayerEvent</code> also receives <code>PlayerJoinEvent</code>. All applicable handlers run in priority order.</p>
+<pre><code>import com.netherrack.api.event.EventHandler;
+import com.netherrack.api.event.Listener;
+import com.netherrack.api.event.player.PlayerChatEvent;
+import com.netherrack.api.event.player.PlayerJoinEvent;
+
+public final class MyListener implements Listener {
+
+    @EventHandler
+    public void onJoin(PlayerJoinEvent event) {
+        event.getPlayer().sendMessage("Welcome, " + event.getPlayer().getName() + "!");
+    }
+
+    @EventHandler
+    public void onChat(PlayerChatEvent event) {
+        if (event.getMessage().equalsIgnoreCase("!hello")) {
+            event.setCancelled(true);
+            event.getPlayer().sendMessage("Hello!");
+        }
+    }
+}</code></pre>
+<p>Register it with <code>getServer().getPluginManager().registerEvents(new MyListener(), this)</code>. Handlers may choose a <code>priority</code> from <code>LOWEST</code>, <code>LOW</code>, <code>NORMAL</code>, <code>HIGH</code>, <code>HIGHEST</code> and <code>MONITOR</code>, and may set <code>ignoreCancelled</code> (on by default). <code>MONITOR</code> should only observe. A handler that throws is reported without stopping the others, and every handler is unregistered when the plugin is disabled.</p>
+<div class="table-wrap"><table><thead><tr><th scope="col">Event</th><th scope="col">Cancellable</th><th scope="col">What it does</th><th scope="col">Thread</th></tr></thead><tbody>
+<tr><td><code>ServerStartEvent</code></td><td>No</td><td>Server fully started and plugins enabled.</td><td>Main startup thread</td></tr>
+<tr><td><code>ServerStopEvent</code></td><td>No</td><td>Graceful shutdown has begun.</td><td>Shutdown thread</td></tr>
+<tr><td><code>PlayerLoginEvent</code></td><td>Yes</td><td>Before login succeeds; cancelling kicks with the event&rsquo;s kick message.</td><td>Player&rsquo;s network thread</td></tr>
+<tr><td><code>PlayerJoinEvent</code></td><td>No</td><td>Player has joined and been added to the player list.</td><td>Player&rsquo;s network thread</td></tr>
+<tr><td><code>PlayerQuitEvent</code></td><td>No</td><td>Player has disconnected and been saved.</td><td>Player&rsquo;s network thread</td></tr>
+<tr><td><code>PlayerChatEvent</code></td><td>Yes</td><td>Before broadcast; the message can be rewritten.</td><td>Player&rsquo;s network thread</td></tr>
+<tr><td><code>PlayerCommandEvent</code></td><td>Yes</td><td>Before dispatch; the command can be rewritten (no leading slash).</td><td>Player&rsquo;s network thread</td></tr>
+<tr><td><code>BlockPlaceEvent</code></td><td>Yes</td><td>Before a player places a block.</td><td>Player&rsquo;s network thread</td></tr>
+<tr><td><code>BlockBreakEvent</code></td><td>Yes</td><td>Before a player breaks a block.</td><td>Player&rsquo;s network thread</td></tr>
+</tbody></table></div>
+<div class="callout callout-warning" role="note"><span class="callout-title">Handlers run on the action thread</span><p>Event delivery is synchronous so a cancellable event can decide what the action does next. Server events run on the startup or shutdown thread; player and block events run on that player&rsquo;s network thread. Return quickly, and use the scheduler for slower work.</p></div>
+
+<h2 id="commands">Commands</h2>
+<p>Commands are declared in <code>plugin.yml</code> and registered just before the plugin&rsquo;s <code>onEnable()</code>. The main plugin class handles them by overriding <code>onCommand(sender, command, label, args)</code>, or a separate class can be installed with <code>getCommand("hello").setExecutor(...)</code>. Returning <code>false</code> shows the declared usage line.</p>
+<pre><code>@Override
+public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    sender.sendMessage("Hello, " + sender.getName() + "!");
+    return true;
+}</code></pre>
+<p>Plugin commands use the server&rsquo;s default command level, and the <code>permission</code> field in <code>plugin.yml</code> is checked when the command runs. A blank node needs no API permission. <code>getCommand(name)</code> works inside <code>onEnable()</code> but returns <code>null</code> in <code>onLoad()</code>. If a name or alias is already used by the server or another plugin, the conflicting command is skipped with a warning rather than replacing the existing one. When a plugin stops, its commands are removed.</p>
+
+<h2 id="permissions">Permissions</h2>
+<p>Register the nodes a plugin checks so their defaults are known. A node has a name, description and default from <code>PermissionDefault</code>: <code>ALLOW</code>, <code>DENY</code>, <code>OPERATOR</code>, <code>NOT_OPERATOR</code> or <code>UNDEFINED</code>.</p>
+<pre><code>import com.netherrack.api.permission.Permission;
+import com.netherrack.api.permission.PermissionDefault;
+import com.netherrack.api.permission.PermissionAttachment;
+
+getPermissionManager().registerPermission(
+        new Permission("hello.use", "Use /hello", PermissionDefault.ALLOW, this));
+
+PermissionAttachment attachment = player.addAttachment(this);
+attachment.setPermission("hello.use", true);
+player.recalculatePermissions();</code></pre>
+<p>Attachments can allow or deny nodes for a player or the console. Exact nodes beat <code>parent.*</code> wildcards, explicit denials beat defaults, and checks are live. API permissions add to the existing op-level system rather than replacing it; an unregistered node still follows the player&rsquo;s operator status.</p>
+
+<h2 id="scheduler">Scheduler</h2>
+<p><code>getScheduler()</code> runs work on the server tick, twenty ticks per second. <code>runTask(plugin, runnable)</code> runs next tick, <code>runTaskLater(plugin, runnable, delayTicks)</code> waits a number of ticks, and <code>runTaskTimer(plugin, runnable, delayTicks, periodTicks)</code> repeats. Each returns a <code>TaskHandler</code> with an id that <code>cancelTask(id)</code> can use. A delay of zero means the next tick, never the current one.</p>
+<pre><code>getScheduler().runTaskLater(this, () -&gt; getLogger().info("Later!"), 20L);
+TaskHandler task = getScheduler().runTaskTimer(this, this::tick, 0L, 20L);
+getScheduler().cancelTask(task.getTaskId());</code></pre>
+<p>All of a plugin&rsquo;s tasks are cancelled when it is disabled. Use a normal thread for blocking disk or network work rather than holding up the tick.</p>
+
+<h2 id="players-world">Players, worlds and blocks</h2>
+<p>The API keeps server internals out of plugin code. <code>Player</code> exposes the name, UUID, XUID, world, location, game mode, messages and kick. <code>Server.getPlayers()</code> lists the players currently registered.</p>
+<ul>
+  <li><code>Location</code> holds the player&rsquo;s <strong>feet</strong> position and facing in degrees. <code>toBlockPosition()</code> floors the coordinates for block lookups.</li>
+  <li><code>GameMode</code> uses Bedrock&rsquo;s ids: survival <code>0</code>, creative <code>1</code>, adventure <code>2</code> and spectator <code>6</code>.</li>
+  <li><code>World</code> provides the name, seed, spawn, save, and <code>getBlock()</code> / <code>setBlock()</code> by coordinates or <code>BlockPosition</code>. A block lookup returns <code>null</code> for air; setting <code>null</code> clears a block.</li>
+  <li><code>BlockSnapshot</code> is an immutable block copy with an identifier, exact state hash and properties. Properties are lower-case names with boolean, integer or string values. <code>setBlock()</code> also sends the change to clients that have the chunk.</li>
+</ul>
+<pre><code>Player player = sender.getPlayer();
+Location location = player.getLocation();
+BlockPosition below = new BlockPosition(
+        location.toBlockPosition().getX(),
+        location.toBlockPosition().getY() - 1,
+        location.toBlockPosition().getZ());
+BlockSnapshot block = player.getWorld().getBlock(below);
+sender.sendMessage("Standing on " + (block == null ? "air" : block));</code></pre>
+
+<h2 id="limitations">Limitations</h2>
+<ul>
+  <li>Plugins can only be added, removed or updated with a server restart for now.</li>
+  <li>Changing API permissions at runtime is checked on command execution, but a player&rsquo;s already-sent command suggestions are not refreshed until the server sends them again.</li>
+  <li>The player and world interfaces are deliberately narrow. There is no inventory, item, mob or block-entity API yet.</li>
+  <li><code>World.setBlock()</code> broadcasts the change to clients but does not fire place/break events, drops or normal placement effects.</li>
+  <li>Player and block events run on the action&rsquo;s network thread; do not block in a handler.</li>
+</ul>
+
+<nav class="pager" aria-label="Pages"><a class="prev" href="commands.html"><small>Previous</small>Commands</a><a class="next" href="guides.html"><small>Next</small>Guides</a></nav>
+  </main>
+  <aside class="toc" aria-label="On this page" hidden><h2 class="toc-title">On this page</h2><ul id="toc-list"></ul></aside>
+</div>
+<footer class="site-footer"><div class="footer-inner">
+  <ul class="footer-links"><li><a href="https://github.com/NetherrackOSS/Netherrack">GitHub</a></li><li><a href="https://github.com/NetherrackOSS/Netherrack/releases">Releases</a></li><li><a href="https://github.com/NetherrackOSS/Netherrack/issues">Report an issue</a></li><li><a href="https://discord.gg/JFUz2G8H4V">Discord</a></li><li><a href="https://github.com/NetherrackOSS/Netherrack/blob/main/LICENSE">GPL-3.0 license</a></li></ul>
+  <p>Netherrack is an independent project. It is not affiliated with, endorsed by, or sponsored by Mojang Studios or Microsoft. Minecraft is a trademark of Mojang Studios.</p>
+  <p>These docs cover Netherrack v0.4.0-beta.</p>
+</div></footer>
+</body>
+</html>

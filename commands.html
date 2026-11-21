@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Commands - Netherrack</title>
-<meta name="description" content="Netherrack&#x27;s console and chat commands: help, version, gamemode, give, kill, tp, op, deop and stop, with usage and permission levels.">
+<meta name="description" content="Netherrack&#x27;s console and chat commands: help, version, gamemode, give, clear, kill, kick, tp, op, deop, reload, plugins and stop, with usage and permission levels.">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fbf8f6">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#141011">
 <meta property="og:site_name" content="Netherrack">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Commands - Netherrack">
-<meta property="og:description" content="Netherrack&#x27;s console and chat commands: help, version, gamemode, give, kill, tp, op, deop and stop, with usage and permission levels.">
+<meta property="og:description" content="Netherrack&#x27;s console and chat commands: help, version, gamemode, give, clear, kill, kick, tp, op, deop, reload, plugins and stop, with usage and permission levels.">
 <link rel="icon" type="image/png" href="assets/img/favicon.png">
 <link rel="stylesheet" href="assets/css/style.css">
 <script>(function(){var r=document.documentElement;r.classList.add('js');try{var t=localStorage.getItem('netherrack-theme');if(t==='light'||t==='dark'){r.setAttribute('data-theme',t);}}catch(e){}})();</script>
@@ -20,7 +20,7 @@
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header"><div class="header-inner">
   <a class="brand" href="index.html" aria-label="Netherrack home"><img class="logo logo-light" src="assets/img/logo-light.png" width="1108" height="298" alt="Netherrack"><img class="logo logo-dark" src="assets/img/logo-dark.png" width="1108" height="298" alt="Netherrack"></a>
-  <nav class="site-nav" aria-label="Main"><ul><li><a href="index.html">Home</a></li><li><a href="installation.html">Install</a></li><li><a href="configuration.html">Configure</a></li><li><a href="commands.html" aria-current="page">Commands</a></li><li><a href="guides.html">Guides</a></li><li><a href="status.html">Status</a></li><li><a href="contributing.html">Contribute</a></li></ul></nav>
+  <nav class="site-nav" aria-label="Main"><ul><li><a href="index.html">Home</a></li><li><a href="installation.html">Install</a></li><li><a href="configuration.html">Configure</a></li><li><a href="commands.html" aria-current="page">Commands</a></li><li><a href="plugins.html">Plugins</a></li><li><a href="guides.html">Guides</a></li><li><a href="status.html">Status</a></li><li><a href="contributing.html">Contribute</a></li></ul></nav>
   <div class="header-tools"><button class="icon-btn theme-toggle" type="button" aria-label="Switch to dark theme"><svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg></button><a class="icon-btn" href="https://github.com/NetherrackOSS/Netherrack" aria-label="Netherrack on GitHub" title="Netherrack on GitHub"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></div>
 </div></header>
 <div class="page has-toc">
@@ -38,39 +38,67 @@
 <p>If you type a command that doesn&rsquo;t exist, you&rsquo;re told so; if you lack the permission, you&rsquo;re told that instead.</p>
 
 <h2 id="reference">Command reference</h2>
-<div class="table-wrap"><table><thead><tr><th scope="col">Command</th><th scope="col">Usage</th><th scope="col">Level</th><th scope="col">What it does</th></tr></thead><tbody><tr><td><code>help</code><br><small>alias <code>?</code></small></td><td><code>/help [page]</code><br><code>/help &lt;command&gt;</code></td><td>0</td><td>Lists the commands you can use, a page at a time, or explains one command.</td></tr><tr><td><code>version</code><br><small>alias <code>ver</code></small></td><td><code>/version</code></td><td>0</td><td>Shows the server software, its version and git commit, and the Java and operating system it runs on.</td></tr><tr><td><code>gamemode</code></td><td><code>/gamemode &lt;mode&gt; [player]</code></td><td>2</td><td>Changes a player&rsquo;s game mode. Without a player it changes your own.</td></tr><tr><td><code>give</code></td><td><code>/give &lt;player&gt; &lt;item&gt; [amount]</code></td><td>2</td><td>Gives a player an item, as vanilla&rsquo;s command does. The item may be written with or without <code>minecraft:</code>; what doesn&rsquo;t fit in their inventory is thrown out at their feet.</td></tr><tr><td><code>kill</code></td><td><code>/kill [player]</code></td><td>2</td><td>Kills a player, death screen and respawn handshake included, just as a killing blow would. Without a player it kills you; it works on creative players too, as vanilla&rsquo;s does.</td></tr><tr><td><code>tp</code></td><td><code>/tp &lt;destination&gt;</code><br><code>/tp &lt;victim&gt; &lt;destination&gt;</code><br><code>/tp &lt;x&gt; &lt;y&gt; &lt;z&gt;</code><br><code>/tp &lt;victim&gt; &lt;x&gt; &lt;y&gt; &lt;z&gt;</code></td><td>2</td><td>Teleports a player, yourself by default, to another player or to a position. Coordinates are where the player&rsquo;s feet go, as in vanilla, and may be written relative to where they are, e.g. <code>~ ~5 ~-2</code>.</td></tr><tr><td><code>op</code></td><td><code>/op &lt;player&gt;</code></td><td>3</td><td>Makes an online player an operator.</td></tr><tr><td><code>deop</code></td><td><code>/deop &lt;player&gt;</code></td><td>3</td><td>Takes away a player&rsquo;s operator status.</td></tr><tr><td><code>stop</code></td><td><code>/stop</code></td><td>4</td><td>Kicks everyone, saves the world and stops the server.</td></tr></tbody></table></div>
+<div class="table-wrap"><table><thead><tr><th scope="col">Command</th><th scope="col">Usage</th><th scope="col">Level</th><th scope="col">What it does</th></tr></thead><tbody>
+<tr><td><code>help</code><br><small>alias <code>?</code></small></td><td><code>/help [page]</code><br><code>/help &lt;command&gt;</code></td><td>0</td><td>Lists the commands you can use, a page at a time, or explains one command.</td></tr>
+<tr><td><code>version</code><br><small>alias <code>ver</code></small></td><td><code>/version</code></td><td>0</td><td>Shows the server software, version and git commit, plugin API version, Java and operating system.</td></tr>
+<tr><td><code>gamemode</code></td><td><code>/gamemode &lt;mode&gt; [player]</code></td><td>2</td><td>Changes a player&rsquo;s game mode. Without a player it changes your own.</td></tr>
+<tr><td><code>give</code></td><td><code>/give &lt;player&gt; &lt;item&gt; [amount]</code></td><td>2</td><td>Gives a player an item, as vanilla&rsquo;s command does. The item may be written with or without <code>minecraft:</code>; what doesn&rsquo;t fit in their inventory is thrown out at their feet.</td></tr>
+<tr><td><code>clear</code></td><td><code>/clear [player]</code></td><td>2</td><td>Empties a player&rsquo;s inventory, armor, offhand, cursor and open crafting grid. <code>/clear</code> or <code>/clear @s</code> clears your own.</td></tr>
+<tr><td><code>kill</code></td><td><code>/kill [player]</code></td><td>2</td><td>Kills a player, death screen and respawn handshake included, just as a killing blow would. Without a player it kills you; it works on creative players too, as vanilla&rsquo;s does.</td></tr>
+<tr><td><code>kick</code></td><td><code>/kick &lt;player&gt; [reason]</code></td><td>2</td><td>Disconnects an online player. The optional reason appears on their disconnect screen and in the console logout line; the in-game leave message is unchanged.</td></tr>
+<tr><td><code>tp</code></td><td><code>/tp &lt;destination&gt;</code><br><code>/tp &lt;victim&gt; &lt;destination&gt;</code><br><code>/tp &lt;x&gt; &lt;y&gt; &lt;z&gt;</code><br><code>/tp &lt;victim&gt; &lt;x&gt; &lt;y&gt; &lt;z&gt;</code></td><td>2</td><td>Teleports a player, yourself by default, to another player or to a position. Coordinates are where the player&rsquo;s feet go, as in vanilla, and may be written relative to where they are, e.g. <code>~ ~5 ~-2</code>.</td></tr>
+<tr><td><code>op</code></td><td><code>/op &lt;player&gt;</code></td><td>3</td><td>Makes an online player an operator.</td></tr>
+<tr><td><code>deop</code></td><td><code>/deop &lt;player&gt;</code></td><td>3</td><td>Takes away a player&rsquo;s operator status.</td></tr>
+<tr><td><code>reload</code><br><small>alias <code>rl</code></small></td><td><code>/reload</code></td><td>4</td><td>Re-reads <code>netherrack.yml</code> logging settings, including <code>logs.debug</code> and console debug, without restarting.</td></tr>
+<tr><td><code>plugins</code><br><small>alias <code>pl</code></small></td><td><code>/plugins</code></td><td>0</td><td>Lists installed plugins, for example <code>Plugins (1): HelloPlugin</code>. Names are lime green.</td></tr>
+<tr><td><code>stop</code></td><td><code>/stop</code></td><td>4</td><td>Disconnects everyone, saves the world and stops the server.</td></tr>
+</tbody></table></div>
+<p>Plugins can declare their own commands in <code>plugin.yml</code>. They use the default command level and may require an API permission node; see <a href="plugins.html#commands">plugin commands</a>.</p>
 <p>The <strong>Level</strong> column is the permission level needed &mdash; see <a href="#permissions">below</a>. Angle brackets <code>&lt;like this&gt;</code> are required; square brackets <code>[like this]</code> are optional.</p>
 
 <h3 id="gamemode">/gamemode</h3>
 <p>The mode can be written in full or short:</p>
-<div class="table-wrap"><table><thead><tr><th scope="col">Mode</th><th scope="col">Accepted as</th></tr></thead><tbody><tr><td>Survival</td><td><code>survival</code>, <code>s</code>, <code>0</code></td></tr><tr><td>Creative</td><td><code>creative</code>, <code>c</code>, <code>1</code></td></tr><tr><td>Adventure</td><td><code>adventure</code>, <code>a</code>, <code>2</code></td></tr><tr><td>Spectator</td><td><code>spectator</code>, <code>6</code></td></tr></tbody></table></div>
-<p>Use <code>default</code> (or <code>d</code>) for the server&rsquo;s default game mode from <code>server.properties</code>. From the console you must name a player, because the console isn&rsquo;t one.</p>
+<div class="table-wrap"><table><thead><tr><th scope="col">Mode</th><th scope="col">Accepted as</th></tr></thead><tbody><tr><td>Survival</td><td><code>survival</code>, <code>s</code>, <code>0</code></td></tr><tr><td>Creative</td><td><code>creative</code>, <code>c</code>, <code>1</code></td></tr><tr><td>Adventure</td><td><code>adventure</code>, <code>a</code>, <code>2</code></td></tr><tr><td>Spectator</td><td><code>spectator</code>, <code>6</code></td></tr><tr><td>Server default</td><td><code>default</code>, <code>d</code></td></tr></tbody></table></div>
+<p><code>default</code> uses the server&rsquo;s default game mode from <code>server.properties</code>. From the console you must name a player, because the console isn&rsquo;t one.</p>
 
 <h3 id="op">/op and /deop</h3>
 <p>The player must be online. <code>/op</code> saves them to <a href="configuration.html#permissions-file"><code>permissions.json</code></a> by Xbox Live ID, so they stay an operator across restarts and name changes. A player who isn&rsquo;t signed into Xbox Live has no ID to save, so they can&rsquo;t be made an operator. <code>/deop</code> removes them again; they go back to the <code>default-player-permission-level</code>.</p>
 <p>Being an operator doesn&rsquo;t unlock everything by itself &mdash; it depends on the permission level below.</p>
 
+<h3 id="clear">/clear</h3>
+<p>Clears everything a player is carrying, including armor, offhand, the cursor and any open crafting grid. Players can clear themselves with <code>/clear</code> or <code>/clear @s</code>; the console must name a target. Level 2 is required.</p>
+
+<h3 id="kick">/kick</h3>
+<p>Disconnects an online player. A reason can follow the name and is shown on their disconnect screen and in the console logout line, for example <code>SchleroMC logged out due to: Disconnected</code>. In-game leave messages are unchanged. Level 2 is required.</p>
+
+<h3 id="plugins">/plugins</h3>
+<p>Lists installed plugins alphabetically, e.g. <code>Plugins (1): HelloPlugin</code>. Names are lime green for players and in ANSI lime green on a color-capable console. The list includes disabled plugins, so check the startup log for load errors too. Everyone can use this command; see <a href="plugins.html">Plugins</a>.</p>
+
+<h3 id="reload">/reload</h3>
+<p>Re-reads the <code>logs.debug</code>, <code>logging</code> and <code>labels</code> sections of <a href="configuration.html#netherrack-yml"><code>netherrack.yml</code></a> without a restart. It doesn&rsquo;t reload most other settings, and it doesn&rsquo;t reload plugin jars &mdash; adding, removing or updating plugins still needs a restart. Level 4 is required.</p>
+
 <h3 id="version">/version</h3>
 <p>Include its output when you <a href="https://github.com/NetherrackOSS/Netherrack/issues">report a bug</a> &mdash; it tells us exactly which build you&rsquo;re running.</p>
 <span class="code-label">Example output of /version</span>
 <pre><code>This server is running Netherrack
-Server version: 0.3.0-alpha (git commit: 67b6fae)
+Server version: 0.4.0-beta (git commit: cee2419)
 Java version: 21.0.4 (Eclipse Adoptium)
-Operating system: Linux 6.1.0 (amd64)</code></pre>
+Operating system: Linux 6.1.0 (amd64)
+Plugin API version: 0.4.0-SNAPSHOT</code></pre>
 
 <h2 id="permissions">Permission levels</h2>
 <p>Every command needs a permission level. Everyone starts at 0, the console is at 4, and operators get the level in <code>op-permission-level</code> (2 by default).</p>
-<div class="table-wrap"><table><thead><tr><th scope="col">Level</th><th scope="col">Adds these commands</th></tr></thead><tbody><tr><td>0</td><td><code>help</code>, <code>version</code> &mdash; every player has this</td></tr><tr><td>2</td><td><code>gamemode</code>, <code>give</code>, <code>kill</code>, <code>tp</code> &mdash; what operators get by default</td></tr><tr><td>3</td><td><code>op</code>, <code>deop</code></td></tr><tr><td>4</td><td><code>stop</code> &mdash; the console always has this</td></tr></tbody></table></div>
-<div class="callout callout-tip" role="note"><span class="callout-title">Letting operators run /op and /stop</span><p>With the default <code>op-permission-level=2</code>, operators can use <code>gamemode</code> but not <code>op</code>, <code>deop</code> or <code>stop</code>. Raise it to <code>3</code> to let them manage operators, or <code>4</code> to let them stop the server. Only give 4 to people you fully trust.</p></div>
+<div class="table-wrap"><table><thead><tr><th scope="col">Level</th><th scope="col">Adds these commands</th></tr></thead><tbody><tr><td>0</td><td><code>help</code>, <code>version</code>, <code>plugins</code> &mdash; every player has this</td></tr><tr><td>2</td><td><code>gamemode</code>, <code>give</code>, <code>clear</code>, <code>kill</code>, <code>kick</code>, <code>tp</code> &mdash; what operators get by default</td></tr><tr><td>3</td><td><code>op</code>, <code>deop</code></td></tr><tr><td>4</td><td><code>reload</code>, <code>stop</code> &mdash; the console always has this</td></tr></tbody></table></div>
+<div class="callout callout-tip" role="note"><span class="callout-title">Letting operators run /op and /stop</span><p>With the default <code>op-permission-level=2</code>, operators can use the level-2 commands but not <code>op</code>, <code>deop</code>, <code>reload</code> or <code>stop</code>. Raise it to <code>3</code> to let them manage operators, or <code>4</code> to let them reload logging and stop the server. Only give 4 to people you fully trust.</p></div>
 
-<nav class="pager" aria-label="Pages"><a class="prev" href="configuration.html"><small>Previous</small>Configure</a><a class="next" href="guides.html"><small>Next</small>Guides</a></nav>
+<nav class="pager" aria-label="Pages"><a class="prev" href="configuration.html"><small>Previous</small>Configure</a><a class="next" href="plugins.html"><small>Next</small>Plugins</a></nav>
   </main>
   <aside class="toc" aria-label="On this page" hidden><h2 class="toc-title">On this page</h2><ul id="toc-list"></ul></aside>
 </div>
 <footer class="site-footer"><div class="footer-inner">
   <ul class="footer-links"><li><a href="https://github.com/NetherrackOSS/Netherrack">GitHub</a></li><li><a href="https://github.com/NetherrackOSS/Netherrack/releases">Releases</a></li><li><a href="https://github.com/NetherrackOSS/Netherrack/issues">Report an issue</a></li><li><a href="https://discord.gg/JFUz2G8H4V">Discord</a></li><li><a href="https://github.com/NetherrackOSS/Netherrack/blob/main/LICENSE">GPL-3.0 license</a></li></ul>
   <p>Netherrack is an independent project. It is not affiliated with, endorsed by, or sponsored by Mojang Studios or Microsoft. Minecraft is a trademark of Mojang Studios.</p>
-  <p>These docs cover Netherrack 0.3.0-alpha.</p>
+  <p>These docs cover Netherrack v0.4.0-beta.</p>
 </div></footer>
 </body>
 </html>

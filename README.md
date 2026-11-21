@@ -13,8 +13,8 @@ Plain HTML, CSS and JS - no build step, no framework, no dependencies.
 
 ## Editing
 
-Each page is a plain `.html` file (`index.html`, `installation.html`, `commands.html`,
-...). There's no templating: update the file directly, in a text editor.
+Each page is a plain `.html` file (`index.html`, `installation.html`, `plugins.html`,
+`commands.html`, ...). There's no templating: update the file directly, in a text editor.
 
 - `assets/css/style.css` - all of the site's styling, including both themes.
 - `assets/js/site.js` - the theme toggle, "On this page" list, heading links and the
@@ -25,9 +25,12 @@ Each page is a plain `.html` file (`index.html`, `installation.html`, `commands.
 
 A few things are worth checking whenever Netherrack's defaults or commands change:
 
-- `DOCS_VERSION` - the version these docs describe, shown in the footer.
+- The footer on **every** page - the version these docs describe (currently `v0.4.0-beta`).
+  There is no `DOCS_VERSION` variable; each footer is hard-coded.
 - `configuration.html` - the `server.properties` and `netherrack.yml` tables, and the
   flat-preset list.
 - `commands.html` - the command table and permission levels.
+- `plugins.html` - the Maven coordinates, `api-version` and plugin feature list.
 - `status.html` - the implemented/not-implemented lists, kept in step with the
-  checklist in the project's own README.
+  **Current status** section in the project's own README.
+- The `Plugins` navigation item and the previous/next pager links on each page.

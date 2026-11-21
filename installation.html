@@ -20,7 +20,7 @@
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header"><div class="header-inner">
   <a class="brand" href="index.html" aria-label="Netherrack home"><img class="logo logo-light" src="assets/img/logo-light.png" width="1108" height="298" alt="Netherrack"><img class="logo logo-dark" src="assets/img/logo-dark.png" width="1108" height="298" alt="Netherrack"></a>
-  <nav class="site-nav" aria-label="Main"><ul><li><a href="index.html">Home</a></li><li><a href="installation.html" aria-current="page">Install</a></li><li><a href="configuration.html">Configure</a></li><li><a href="commands.html">Commands</a></li><li><a href="guides.html">Guides</a></li><li><a href="status.html">Status</a></li><li><a href="contributing.html">Contribute</a></li></ul></nav>
+  <nav class="site-nav" aria-label="Main"><ul><li><a href="index.html">Home</a></li><li><a href="installation.html" aria-current="page">Install</a></li><li><a href="configuration.html">Configure</a></li><li><a href="commands.html">Commands</a></li><li><a href="plugins.html">Plugins</a></li><li><a href="guides.html">Guides</a></li><li><a href="status.html">Status</a></li><li><a href="contributing.html">Contribute</a></li></ul></nav>
   <div class="header-tools"><button class="icon-btn theme-toggle" type="button" aria-label="Switch to dark theme"><svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg></button><a class="icon-btn" href="https://github.com/NetherrackOSS/Netherrack" aria-label="Netherrack on GitHub" title="Netherrack on GitHub"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></div>
 </div></header>
 <div class="page has-toc">
@@ -33,9 +33,9 @@
 <ul>
   <li><strong>Java 17 or newer.</strong> Run <code>java --version</code> to check. A JRE is enough to run Netherrack; you need a JDK only to build it yourself.</li>
   <li><strong>Minecraft: Bedrock Edition 1.26.60.</strong> Netherrack currently speaks that one protocol version, and only over <strong>NetherNet</strong>, the transport Bedrock uses since that release. Older clients (and anything expecting RakNet) will not be able to connect.</li>
-  <li><strong>UDP port 19132</strong> free. That&rsquo;s the default; you can change it in <a href="configuration.html#server-properties"><code>server.properties</code></a>. If you also run Bedrock Dedicated Server on this machine, it uses the same port.</li>
+  <li><strong>Port 19132</strong> free for NetherNet&rsquo;s HTTP signaling and WebRTC game traffic. That&rsquo;s the default; you can change it in <a href="configuration.html#server-properties"><code>server.properties</code></a>. Check both TCP and UDP in your firewall. If you also run Bedrock Dedicated Server on this machine, it uses the same port.</li>
 </ul>
-<p>Netherrack is mainly tested on Linux. It&rsquo;s plain Java, so it should run anywhere Java 17+ does, but expect rough edges on other systems.</p>
+<p>The NetherNet native WebRTC library is bundled in the JAR, so there&rsquo;s nothing extra to install. Netherrack is mainly tested on Linux. It&rsquo;s plain Java, so it should run anywhere Java 17+ does, but expect rough edges on other systems.</p>
 
 <h2 id="download">Download</h2>
 <ol>
@@ -49,28 +49,31 @@
 <pre><code>java -jar netherrack.jar</code></pre>
 <p>When it starts you should see something like this:</p>
 <span class="code-label">Example output</span>
-<pre><code>[21:25:58] [main] [INFO] Starting Netherrack server version 0.3.0-alpha
+<pre><code>[21:25:58] [main] [INFO] Starting Netherrack server version 0.4.0-beta
 [21:25:58] [main] [INFO] Preparing level "Bedrock level"...
 [21:25:59] [main] [INFO] Loading level "Bedrock level" (generator: terrain)...
 [21:25:59] [main] [INFO] Opening server on 0.0.0.0:19132...
 [21:26:00] [nioEventLoopGroup-2-1] [INFO] NetherNet server channel initialized.
+[21:26:00] [main] [INFO] This server is running Netherrack v0.4.0-beta (git commit: cee2419)
+[21:26:00] [main] [INFO] Netherrack is distributed under the GPL License
+[21:26:00] [main] [INFO] This is an early build; the plugin API is experimental.
 [21:26:01] [main] [INFO] Preparing spawn area...
 [21:26:01] [main] [INFO] Server thread/Netherrack is now running.
 [21:26:01] [main] [INFO] Done! Max players: 20. Type "help" for a list of commands.</code></pre>
-<p>Once you see <code>Done!</code>, the server is ready for players. Type <code>help</code> in the console for the list of commands.</p>
-<div class="callout callout-warning" role="note"><span class="callout-title">The start scripts need a recent Java</span><p>The download includes <code>start.sh</code> and <code>start.bat</code>, which launch the server with extra JVM flags. One of them, <code>--sun-misc-unsafe-memory-access</code>, only exists on newer Java releases: Java 21 rejects it with <code>Unrecognized option</code> and refuses to start. If a script fails like that, launch the server with <code>java -jar netherrack.jar</code> instead. (The scripts also expect the JAR to be named <code>netherrack.jar</code>.)</p></div>
+<p>The version, commit, timestamps and thread names are examples; the commit is build-specific and may show <code>unknown</code> outside a git checkout. Once you see <code>Done!</code>, the server is ready for players. Type <code>help</code> in the console for the list of commands.</p>
+<div class="callout callout-warning" role="note"><span class="callout-title">Native-access JVM flags</span><p>If the NetherNet native transport reports memory-access or native-access errors, launch the server with:</p><pre><code>java --sun-misc-unsafe-memory-access=allow --enable-native-access=ALL-UNNAMED -jar netherrack.jar</code></pre><p>The repository also includes <code>start.sh</code> and <code>start.bat</code>, which pass those flags and expect the JAR to be named <code>netherrack.jar</code> in the same folder. The <code>--sun-misc-unsafe-memory-access=allow</code> flag is not recognized by older JVMs such as Java 21; if a script fails with <code>Unrecognized option</code>, use <code>java -jar netherrack.jar</code> unless your platform actually needs the flags.</p></div>
 
 <h2 id="first-run">The first run</h2>
 <p>The very first time, Netherrack sees there&rsquo;s no <code>server.properties</code> and starts a short setup wizard:</p>
 <ol>
   <li><strong>Language.</strong> Type <code>en-US</code> (English) or <code>pt-BR</code> (Brazilian Portuguese), or press Enter for English.</li>
-  <li><strong>License.</strong> Netherrack shows the GNU GPL v3.0 notice. Type <code>y</code> (or <code>yes</code>; <code>s</code>/<code>sim</code> also work) to accept. Anything else cancels startup &mdash; the server can&rsquo;t start without accepting the license.</li>
+  <li><strong>License.</strong> Netherrack shows the GNU GPL v3.0 notice and asks <code>Do you accept the license? (y/N):</code>. Type <code>y</code> (or <code>yes</code>; <code>s</code>/<code>sim</code> also work) to accept. Anything else exits startup &mdash; the server can&rsquo;t start without accepting the license.</li>
 </ol>
 <p>The wizard only runs when <code>server.properties</code> is missing, so you&rsquo;ll see it once. Afterwards Netherrack creates these in the folder you ran it from:</p>
-<div class="table-wrap"><table><thead><tr><th scope="col">File or folder</th><th scope="col">What it&rsquo;s for</th></tr></thead><tbody><tr><td><code>server.properties</code></td><td>Main settings: port, player limit, world name, language&hellip; See <a href="configuration.html#server-properties">Configuration</a>.</td></tr><tr><td><code>netherrack.yml</code></td><td>Netherrack&rsquo;s own settings: flat preset, kick messages, debug logging.</td></tr><tr><td><code>permissions.json</code></td><td>Who is an operator, by Xbox Live ID.</td></tr><tr><td><code>nethernet-identity.pem</code></td><td>The private key Netherrack identifies itself with on NetherNet. Generated once on first start; deleting it makes the server create a new identity, and clients may then treat it as a different server.</td></tr><tr><td><code>worlds/</code></td><td>Your worlds. Each is a folder named after <code>level-name</code>, holding <code>level.dat</code> and a <code>db</code> folder.</td></tr><tr><td><code>logs/latest.log</code></td><td>A plain-text copy of the console for the current run.</td></tr></tbody></table></div>
+<div class="table-wrap"><table><thead><tr><th scope="col">File or folder</th><th scope="col">What it&rsquo;s for</th></tr></thead><tbody><tr><td><code>server.properties</code></td><td>Main settings: port, player limit, world name, language&hellip; See <a href="configuration.html#server-properties">Configuration</a>.</td></tr><tr><td><code>netherrack.yml</code></td><td>Netherrack&rsquo;s own settings: logging formats and colors, debug options, messages and the flat preset.</td></tr><tr><td><code>permissions.json</code></td><td>Who is an operator, by Xbox Live ID.</td></tr><tr><td><code>nethernet-identity.pem</code></td><td>The private key Netherrack identifies itself with on NetherNet. Generated once on first start; deleting it makes the server create a new identity, and clients may then treat it as a different server.</td></tr><tr><td><code>worlds/</code></td><td>Your worlds. Each is a folder named after <code>level-name</code>, holding <code>level.dat</code>, <code>levelname.txt</code> and a <code>db</code> folder.</td></tr><tr><td><code>plugins/</code></td><td>Plugin jars and each plugin&rsquo;s data folder. Netherrack creates this folder on first start; see <a href="plugins.html">Plugins</a>.</td></tr><tr><td><code>logs/latest.log</code></td><td>A plain-text copy of the console for the current run.</td></tr></tbody></table></div>
 
 <h2 id="stopping">Stopping the server</h2>
-<p>Type <code>stop</code> in the console. Netherrack kicks everyone with a &ldquo;Server closed&rdquo; message, saves the world and exits. It also saves the world if you press <kbd>Ctrl</kbd>+<kbd>C</kbd> or close the console window, and saves periodically while it runs.</p>
+<p>Type <code>stop</code> in the console. Netherrack disconnects players with the configured <code>messages.server-shutdown</code> message, disables plugins, saves the world and exits. It also saves the world if you press <kbd>Ctrl</kbd>+<kbd>C</kbd> or close the console window, and autosaves every 30 seconds while it runs.</p>
 <p>Players can run <code>/stop</code> in chat too, but only with permission level 4 &mdash; see <a href="commands.html#permissions">permissions</a>.</p>
 
 <h2 id="updating">Updating</h2>
@@ -79,19 +82,19 @@
   <li>Replace <code>netherrack.jar</code> with the new release.</li>
   <li>Start the server as before. Your configuration files and worlds stay where they are.</li>
 </ol>
-<div class="callout callout-warning" role="note"><span class="callout-title">It’s alpha software</span><p>Netherrack is still changing quickly, and a newer version may not be able to read a world saved by an older one. That&rsquo;s why the backup comes first.</p></div>
+<div class="callout callout-warning" role="note"><span class="callout-title">It’s experimental beta software</span><p>Netherrack is still changing quickly, and a newer version may not be able to read a world saved by an older one. That&rsquo;s why the backup comes first.</p></div>
 
 <h2 id="build">Build it from source</h2>
 <p>You&rsquo;ll need Git and a JDK (Java 17 or newer). The project includes the Maven wrapper, so you don&rsquo;t need to install Maven.</p>
 <span class="code-label">Linux and macOS</span>
 <pre><code>git clone https://github.com/NetherrackOSS/Netherrack.git
 cd Netherrack
-./mvnw clean package</code></pre>
+bash mvnw clean package</code></pre>
 <span class="code-label">Windows</span>
 <pre><code>git clone https://github.com/NetherrackOSS/Netherrack.git
 cd Netherrack
 mvnw.cmd clean package</code></pre>
-<p>The JAR ends up in the <code>target</code> folder. The first build downloads the dependencies, so it needs an internet connection.</p>
+<p>The shaded, runnable JAR is written to <code>target/netherrack.jar</code>. The first build downloads the dependencies, so it needs an internet connection.</p>
 <p>Working on the code? See <a href="contributing.html">Contributing</a>.</p>
 
 <nav class="pager" aria-label="Pages"><a class="next" href="configuration.html"><small>Next</small>Configure</a></nav>
@@ -101,7 +104,7 @@ mvnw.cmd clean package</code></pre>
 <footer class="site-footer"><div class="footer-inner">
   <ul class="footer-links"><li><a href="https://github.com/NetherrackOSS/Netherrack">GitHub</a></li><li><a href="https://github.com/NetherrackOSS/Netherrack/releases">Releases</a></li><li><a href="https://github.com/NetherrackOSS/Netherrack/issues">Report an issue</a></li><li><a href="https://discord.gg/JFUz2G8H4V">Discord</a></li><li><a href="https://github.com/NetherrackOSS/Netherrack/blob/main/LICENSE">GPL-3.0 license</a></li></ul>
   <p>Netherrack is an independent project. It is not affiliated with, endorsed by, or sponsored by Mojang Studios or Microsoft. Minecraft is a trademark of Mojang Studios.</p>
-  <p>These docs cover Netherrack 0.3.0-alpha.</p>
+  <p>These docs cover Netherrack v0.4.0-beta.</p>
 </div></footer>
 </body>
 </html>
