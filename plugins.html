@@ -27,7 +27,7 @@
   <main id="main" class="content">
 
 <h1>Plugins</h1>
-<p class="lead">Netherrack v0.4.0-beta has a small Java plugin API. Plugins get lifecycle callbacks, events, commands, permission nodes, scheduled tasks, and a narrow view of players and blocks.</p>
+<p class="lead">Netherrack v0.4.0-beta has a small Java plugin API. Plugins get lifecycle callbacks, events, commands, permission nodes, scheduled tasks, Bedrock forms, and a narrow view of players and blocks.</p>
 
 <div class="callout callout-warning" role="note"><span class="callout-title">Experimental API</span><p>The API is new and may change between releases. Plugins declare which API version they were built for, and the server checks it before loading them. A plugin built for 0.4.x runs on any 0.4.x server, but not on 0.3.x or 1.x.</p></div>
 
@@ -150,6 +150,7 @@ public final class MyListener implements Listener {
 <tr><td><code>PlayerQuitEvent</code></td><td>No</td><td>Player has disconnected and been saved.</td><td>Player&rsquo;s network thread</td></tr>
 <tr><td><code>PlayerChatEvent</code></td><td>Yes</td><td>Before broadcast; the message can be rewritten.</td><td>Player&rsquo;s network thread</td></tr>
 <tr><td><code>PlayerCommandEvent</code></td><td>Yes</td><td>Before dispatch; the command can be rewritten (no leading slash).</td><td>Player&rsquo;s network thread</td></tr>
+<tr><td><code>PlayerFormRespondedEvent</code></td><td>No</td><td>After a player answers or closes a form.</td><td>Player&rsquo;s network thread</td></tr>
 <tr><td><code>BlockPlaceEvent</code></td><td>Yes</td><td>Before a player places a block.</td><td>Player&rsquo;s network thread</td></tr>
 <tr><td><code>BlockBreakEvent</code></td><td>Yes</td><td>Before a player breaks a block.</td><td>Player&rsquo;s network thread</td></tr>
 </tbody></table></div>
@@ -202,10 +203,25 @@ BlockPosition below = new BlockPosition(
 BlockSnapshot block = player.getWorld().getBlock(below);
 sender.sendMessage("Standing on " + (block == null ? "air" : block));</code></pre>
 
+<h2 id="forms">Forms</h2>
+<p><code>Player.showForm(Form)</code> opens a Bedrock form and returns its id, or <code>-1</code> if the player already has one open. <code>SimpleForm</code> is a title, a message and a list of buttons. Its <code>onSubmit</code> callback receives the player and the clicked <code>SimpleFormResponse</code>; <code>onClose</code> runs when the player dismisses the form. The server sends the JSON, matches the response by id, ignores stale answers, and fires <code>PlayerFormRespondedEvent</code> for plugins that want to observe every response.</p>
+<pre><code>import com.netherrack.api.form.SimpleForm;
+import com.netherrack.api.form.SimpleFormResponse;
+
+Player player = sender.getPlayer();
+SimpleForm form = new SimpleForm("Test", "Test")
+        .addButton("Test")
+        .onSubmit((submitter, response) -&gt; submitter.sendMessage(
+                "You clicked " + response.getButtonText() + "."))
+        .onClose(submitter -&gt; submitter.sendMessage("You closed the form."));
+player.showForm(form);</code></pre>
+<p>The example plugin&rsquo;s <code>/testform</code> command opens exactly that form. Callbacks run on the player&rsquo;s network thread, so keep them short and use the scheduler for slower work.</p>
+
 <h2 id="limitations">Limitations</h2>
 <ul>
   <li>Plugins can only be added, removed or updated with a server restart for now.</li>
   <li>Changing API permissions at runtime is checked on command execution, but a player&rsquo;s already-sent command suggestions are not refreshed until the server sends them again.</li>
+  <li>The form API currently offers simple forms only; modal and custom forms are not exposed yet.</li>
   <li>The player and world interfaces are deliberately narrow. There is no inventory, item, mob or block-entity API yet.</li>
   <li><code>World.setBlock()</code> broadcasts the change to clients but does not fire place/break events, drops or normal placement effects.</li>
   <li>Player and block events run on the action&rsquo;s network thread; do not block in a handler.</li>
