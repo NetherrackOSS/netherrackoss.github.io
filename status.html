@@ -50,8 +50,9 @@
 <li>✅ Eating food</li>
 <li>✅ Player-versus-player combat with reach, weapon damage, knockback and invulnerability ticks</li>
 <li>✅ Item entities: dropped items, death drops when a player dies, and items burning in lava or fire</li>
-<li>✅ Commands: <code>help</code>, <code>version</code>, <code>gamemode</code>, <code>give</code>, <code>clear</code>, <code>kill</code>, <code>kick</code>, <code>tp</code>, <code>op</code>, <code>deop</code>, <code>reload</code>, <code>plugins</code>, <code>stop</code></li>
+<li>✅ Commands: <code>help</code>, <code>version</code>, <code>gamemode</code>, <code>give</code>, <code>clear</code>, <code>kill</code>, <code>kick</code>, <code>tp</code>, <code>op</code>, <code>deop</code>, <code>whitelist</code>, <code>reload</code>, <code>plugins</code>, <code>stop</code></li>
 <li>✅ Operators and permission levels</li>
+<li>✅ Whitelist: <code>white-list</code>, <code>whitelist.json</code> and the <code>/whitelist</code> command</li>
 <li>✅ Plugin API: lifecycle, events, commands, scheduler, permissions, simple forms and a small player/world/block API</li>
 <li>✅ Example Maven plugin and plugin API version in <code>/version</code></li>
 </ul></td></tr></tbody></table></div>
@@ -65,7 +66,6 @@
 <li>⬜ Furnace, stonecutter and smithing screens</li>
 <li>⬜ Caves, ores, flowers and multiple biomes in generated terrain</li>
 <li>⬜ More blocks and gameplay features</li>
-<li>⬜ Whitelist</li>
 </ul></td></tr></tbody></table></div>
 
 <h2 id="limitations">Known limitations</h2>
@@ -80,7 +80,6 @@
   <li><strong>Client movement isn&rsquo;t validated.</strong> Positions are currently accepted as the client reports them.</li>
   <li><strong>Plugins need a restart.</strong> Runtime plugin enable, disable and reload aren&rsquo;t implemented; a jar change needs a server restart.</li>
   <li><strong>Plugin command suggestions can lag.</strong> API permission changes take effect when a command runs, but a player&rsquo;s already-sent suggestions aren&rsquo;t refreshed until the server sends them again.</li>
-  <li><strong>No whitelist.</strong> <code>server-whitelist</code> has a message configured for it in <code>netherrack.yml</code>, but there&rsquo;s no whitelist system to show it yet.</li>
   <li><strong>Some vanilla data predates 1.26.60.</strong> A few newer blocks or entities may be missing or appear as the unknown-block texture.</li>
 </ul>
 <p>None of this is hidden on purpose &mdash; Netherrack is young, and this list will shrink over time. If you hit something not covered here, <a href="https://github.com/NetherrackOSS/Netherrack/issues">open an issue</a>.</p>
@@ -95,6 +94,7 @@
   <li>Crafting with a real client: recipe book entries, previews and results.</li>
   <li>Death drops landing in unloaded chunks or in the void, or dying while flying or with a chest-like screen open.</li>
   <li>Burning dropped items and their flame animation with a real client.</li>
+  <li>Whitelist enforcement, operator bypass and <code>/whitelist</code> with a real client.</li>
   <li>Every gameplay mechanic and block interaction.</li>
   <li>Behavior under heavy chunk loading.</li>
   <li>Plugin behavior beyond the plain-Java API checks, and runtime plugin changes (which require a restart).</li>
