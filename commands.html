@@ -53,7 +53,7 @@
 <tr><td><code>op</code></td><td><code>/op &lt;player&gt;</code></td><td>3</td><td>Makes an online player an operator.</td></tr>
 <tr><td><code>deop</code></td><td><code>/deop &lt;player&gt;</code></td><td>3</td><td>Takes away a player&rsquo;s operator status.</td></tr>
 <tr><td><code>whitelist</code><br><small>alias <code>wl</code></small></td><td><code>/whitelist &lt;on|off|list|reload&gt;</code><br><code>/whitelist &lt;add|remove&gt; &lt;player&gt;</code></td><td>3</td><td>Controls who may join while <code>white-list</code> is enabled. Operators can always join.</td></tr>
-<tr><td><code>reload</code><br><small>alias <code>rl</code></small></td><td><code>/reload</code></td><td>4</td><td>Re-reads <code>netherrack.yml</code> logging settings, including <code>logs.debug</code> and console debug, without restarting.</td></tr>
+<tr><td><code>reload</code><br><small>alias <code>rl</code></small></td><td><code>/reload</code></td><td>4</td><td>Re-reads <code>netherrack.yml</code> logging settings and hot-reloads plugins from <code>plugins/</code>, without a full server restart.</td></tr>
 <tr><td><code>plugins</code><br><small>alias <code>pl</code></small></td><td><code>/plugins</code></td><td>0</td><td>Lists installed plugins, for example <code>Plugins (1): HelloPlugin</code>. Names are lime green.</td></tr>
 <tr><td><code>stop</code></td><td><code>/stop</code></td><td>4</td><td>Disconnects everyone, saves the world and stops the server.</td></tr>
 </tbody></table></div>
@@ -91,7 +91,7 @@
 <p>Lists installed plugins alphabetically, e.g. <code>Plugins (1): HelloPlugin</code>. Names are lime green for players and in ANSI lime green on a color-capable console. The list includes disabled plugins, so check the startup log for load errors too. Everyone can use this command; see <a href="plugins.html">Plugins</a>.</p>
 
 <h3 id="reload">/reload</h3>
-<p>Re-reads the <code>logs.debug</code>, <code>logging</code> and <code>labels</code> sections of <a href="configuration.html#netherrack-yml"><code>netherrack.yml</code></a> without a restart. It doesn&rsquo;t reload most other settings, and it doesn&rsquo;t reload plugin jars &mdash; adding, removing or updating plugins still needs a restart. Level 4 is required.</p>
+<p>Re-reads the <code>logs.debug</code>, <code>logging</code> and <code>labels</code> sections of <a href="configuration.html#netherrack-yml"><code>netherrack.yml</code></a>, then hot-reloads plugins from <code>plugins/</code>. Loaded plugins are disabled, their listeners/commands/tasks/permissions are cleared, and jars are discovered and loaded again without a full server restart. This is best-effort &mdash; a restart is still the safest recovery path for complex plugin state. Level 4 is required.</p>
 
 <h3 id="version">/version</h3>
 <p>Include its output when you <a href="https://github.com/NetherrackOSS/Netherrack/issues">report a bug</a> &mdash; it tells us exactly which build you&rsquo;re running.</p>

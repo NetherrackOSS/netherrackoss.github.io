@@ -63,7 +63,7 @@
 <li>⬜ Complete world system</li>
 <li>⬜ Complete Bedrock play/login flow</li>
 <li>⬜ Mobs and a full entity system</li>
-<li>⬜ Runtime plugin enable, disable and reload</li>
+<li>✅ Best-effort plugin hot-reload through <code>/reload</code></li>
 <li>⬜ Furnace, stonecutter and smithing screens</li>
 <li>⬜ Caves, ores, flowers and multiple biomes in generated terrain</li>
 <li>⬜ More blocks and gameplay features</li>
@@ -79,7 +79,7 @@
   <li><strong>Plains-only terrain.</strong> Generated worlds have no caves, ores, flowers or multiple biomes yet.</li>
   <li><strong>Some screens are missing.</strong> Furnace, stonecutter and smithing screens aren&rsquo;t implemented.</li>
   <li><strong>Client movement isn&rsquo;t validated.</strong> Positions are currently accepted as the client reports them.</li>
-  <li><strong>Plugins need a restart.</strong> Runtime plugin enable, disable and reload aren&rsquo;t implemented; a jar change needs a server restart.</li>
+  <li><strong>Plugin reload is best-effort.</strong> <code>/reload</code> hot-reloads plugins, but complex classloader or state-heavy plugins may still need a full server restart.</li>
   <li><strong>Plugin command suggestions can lag.</strong> API permission changes take effect when a command runs, but a player&rsquo;s already-sent suggestions aren&rsquo;t refreshed until the server sends them again.</li>
   <li><strong>Some vanilla data predates 1.26.60.</strong> A few newer blocks or entities may be missing or appear as the unknown-block texture.</li>
 </ul>
@@ -99,7 +99,7 @@
   <li>Ban enforcement, the kick-on-ban message and <code>/ban</code>, <code>/pardon</code> and <code>/banlist</code> with a real client.</li>
   <li>Every gameplay mechanic and block interaction.</li>
   <li>Behavior under heavy chunk loading.</li>
-  <li>Plugin behavior beyond the plain-Java API checks, and runtime plugin changes (which require a restart).</li>
+  <li>Plugin behavior beyond the plain-Java API checks, and hot-reload behavior with real plugin jars/state.</li>
 </ul>
 <p>This list isn&rsquo;t exhaustive either. If you find something, a bug report with your <code>/version</code> output and console log genuinely helps &mdash; see <a href="contributing.html#bugs">reporting a bug</a>.</p>
 
