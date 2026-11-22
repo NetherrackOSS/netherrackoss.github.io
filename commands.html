@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Commands - Netherrack</title>
-<meta name="description" content="Netherrack&#x27;s console and chat commands: help, version, gamemode, give, clear, kill, kick, tp, op, deop, reload, plugins and stop, with usage and permission levels.">
+<meta name="description" content="Netherrack&#x27;s console and chat commands: help, version, gamemode, give, clear, kill, kick, ban, pardon, banlist, tp, op, deop, reload, plugins and stop, with usage and permission levels.">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fbf8f6">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#141011">
 <meta property="og:site_name" content="Netherrack">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Commands - Netherrack">
-<meta property="og:description" content="Netherrack&#x27;s console and chat commands: help, version, gamemode, give, clear, kill, kick, tp, op, deop, reload, plugins and stop, with usage and permission levels.">
+<meta property="og:description" content="Netherrack&#x27;s console and chat commands: help, version, gamemode, give, clear, kill, kick, ban, pardon, banlist, tp, op, deop, reload, plugins and stop, with usage and permission levels.">
 <link rel="icon" type="image/png" href="assets/img/favicon.png">
 <link rel="stylesheet" href="assets/css/style.css">
 <script>(function(){var r=document.documentElement;r.classList.add('js');try{var t=localStorage.getItem('netherrack-theme');if(t==='light'||t==='dark'){r.setAttribute('data-theme',t);}}catch(e){}})();</script>
@@ -46,6 +46,9 @@
 <tr><td><code>clear</code></td><td><code>/clear [player]</code></td><td>2</td><td>Empties a player&rsquo;s inventory, armor, offhand, cursor and open crafting grid. <code>/clear</code> or <code>/clear @s</code> clears your own.</td></tr>
 <tr><td><code>kill</code></td><td><code>/kill [player]</code></td><td>2</td><td>Kills a player, death screen and respawn handshake included, just as a killing blow would. Without a player it kills you; it works on creative players too, as vanilla&rsquo;s does.</td></tr>
 <tr><td><code>kick</code></td><td><code>/kick &lt;player&gt; [reason]</code></td><td>2</td><td>Disconnects an online player. The optional reason appears on their disconnect screen and in the console logout line; the in-game leave message is unchanged.</td></tr>
+<tr><td><code>ban</code></td><td><code>/ban &lt;player&gt; [reason...]</code></td><td>2</td><td>Adds a lasting ban. Offline names work; banning an online player also saves their XUID and UUID and disconnects them with the same message future logins receive.</td></tr>
+<tr><td><code>pardon</code><br><small>alias <code>unban</code></small></td><td><code>/pardon &lt;player&gt;</code><br><code>/unban &lt;player&gt;</code></td><td>2</td><td>Removes a ban by name, XUID or UUID. The player doesn&rsquo;t need to be online.</td></tr>
+<tr><td><code>banlist</code></td><td><code>/banlist [ips|players|reload]</code></td><td>2</td><td>Lists banned players, re-reads <code>banned-players.json</code> after a hand edit, or explains that IP bans aren&rsquo;t kept.</td></tr>
 <tr><td><code>tp</code></td><td><code>/tp &lt;destination&gt;</code><br><code>/tp &lt;victim&gt; &lt;destination&gt;</code><br><code>/tp &lt;x&gt; &lt;y&gt; &lt;z&gt;</code><br><code>/tp &lt;victim&gt; &lt;x&gt; &lt;y&gt; &lt;z&gt;</code></td><td>2</td><td>Teleports a player, yourself by default, to another player or to a position. Coordinates are where the player&rsquo;s feet go, as in vanilla, and may be written relative to where they are, e.g. <code>~ ~5 ~-2</code>.</td></tr>
 <tr><td><code>op</code></td><td><code>/op &lt;player&gt;</code></td><td>3</td><td>Makes an online player an operator.</td></tr>
 <tr><td><code>deop</code></td><td><code>/deop &lt;player&gt;</code></td><td>3</td><td>Takes away a player&rsquo;s operator status.</td></tr>
@@ -75,6 +78,15 @@
 <h3 id="kick">/kick</h3>
 <p>Disconnects an online player. A reason can follow the name and is shown on their disconnect screen and in the console logout line, for example <code>SchleroMC logged out due to: Disconnected</code>. In-game leave messages are unchanged. Level 2 is required.</p>
 
+<h3 id="ban">/ban</h3>
+<p>Adds a player to <a href="configuration.html#ban-file"><code>banned-players.json</code></a>. The target may be offline, and everything after the name becomes the stored reason, so <code>/ban Griefer griefing the spawn</code> saves <code>griefing the spawn</code>. If the player is online, Netherrack saves their XUID and UUID too and disconnects them immediately with the same message a banned player sees at login. The message comes from <code>messages.server-ban</code>, with the reason appended. Level 2 is required.</p>
+
+<h3 id="pardon">/pardon and /unban</h3>
+<p>Removes a ban by gamertag, XUID or UUID. The player doesn&rsquo;t need to be online: <code>/pardon Griefer</code> and <code>/unban Griefer</code> do the same thing. Level 2 is required.</p>
+
+<h3 id="banlist">/banlist</h3>
+<p>Lists the names in <code>banned-players.json</code>. <code>/banlist players</code> is the default; <code>/banlist reload</code> re-reads the file after a hand edit. Nukkit&rsquo;s <code>/banlist ips</code> is accepted, but Netherrack doesn&rsquo;t keep IP bans. Level 2 is required.</p>
+
 <h3 id="plugins">/plugins</h3>
 <p>Lists installed plugins alphabetically, e.g. <code>Plugins (1): HelloPlugin</code>. Names are lime green for players and in ANSI lime green on a color-capable console. The list includes disabled plugins, so check the startup log for load errors too. Everyone can use this command; see <a href="plugins.html">Plugins</a>.</p>
 
@@ -92,7 +104,7 @@ Plugin API version: 0.4.0-SNAPSHOT</code></pre>
 
 <h2 id="permissions">Permission levels</h2>
 <p>Every command needs a permission level. Everyone starts at 0, the console is at 4, and operators get the level in <code>op-permission-level</code> (2 by default).</p>
-<div class="table-wrap"><table><thead><tr><th scope="col">Level</th><th scope="col">Adds these commands</th></tr></thead><tbody><tr><td>0</td><td><code>help</code>, <code>version</code>, <code>plugins</code> &mdash; every player has this</td></tr><tr><td>2</td><td><code>gamemode</code>, <code>give</code>, <code>clear</code>, <code>kill</code>, <code>kick</code>, <code>tp</code> &mdash; what operators get by default</td></tr><tr><td>3</td><td><code>op</code>, <code>deop</code>, <code>whitelist</code></td></tr><tr><td>4</td><td><code>reload</code>, <code>stop</code> &mdash; the console always has this</td></tr></tbody></table></div>
+<div class="table-wrap"><table><thead><tr><th scope="col">Level</th><th scope="col">Adds these commands</th></tr></thead><tbody><tr><td>0</td><td><code>help</code>, <code>version</code>, <code>plugins</code> &mdash; every player has this</td></tr><tr><td>2</td><td><code>gamemode</code>, <code>give</code>, <code>clear</code>, <code>kill</code>, <code>kick</code>, <code>ban</code>, <code>pardon</code>, <code>banlist</code>, <code>tp</code> &mdash; what operators get by default</td></tr><tr><td>3</td><td><code>op</code>, <code>deop</code>, <code>whitelist</code></td></tr><tr><td>4</td><td><code>reload</code>, <code>stop</code> &mdash; the console always has this</td></tr></tbody></table></div>
 <div class="callout callout-tip" role="note"><span class="callout-title">Letting operators run /op and /stop</span><p>With the default <code>op-permission-level=2</code>, operators can use the level-2 commands but not <code>op</code>, <code>deop</code>, <code>whitelist</code>, <code>reload</code> or <code>stop</code>. Raise it to <code>3</code> to let them manage operators and the whitelist, or <code>4</code> to let them reload logging and stop the server. Only give 4 to people you fully trust.</p></div>
 
 <nav class="pager" aria-label="Pages"><a class="prev" href="configuration.html"><small>Previous</small>Configure</a><a class="next" href="plugins.html"><small>Next</small>Plugins</a></nav>

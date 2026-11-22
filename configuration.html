@@ -30,7 +30,7 @@
 <p class="lead">Everything Netherrack reads is in plain text files next to the JAR. Stop the server before editing most settings &mdash; they are read at startup. The <code>logs.debug</code>, <code>logging</code> and <code>labels</code> sections in <code>netherrack.yml</code> can be applied without a restart with <code>/reload</code>.</p>
 
 <h2 id="files">Files and folders</h2>
-<div class="table-wrap"><table><thead><tr><th scope="col">File or folder</th><th scope="col">What it holds</th></tr></thead><tbody><tr><td><code>server.properties</code></td><td>The main settings, below. Netherrack writes it with comments explaining each one.</td></tr><tr><td><code>netherrack.yml</code></td><td>Netherrack-specific settings: logging formats and colors, debug options, messages and the flat preset.</td></tr><tr><td><code>permissions.json</code></td><td>The operators, by Xbox Live ID.</td></tr><tr><td><code>whitelist.json</code></td><td>The players allowed in when <code>white-list</code> is on.</td></tr><tr><td><code>nethernet-identity.pem</code></td><td>The server&rsquo;s NetherNet identity, created on first start. Leave it alone &mdash; losing it changes how clients recognize the server.</td></tr><tr><td><code>worlds/&lt;level-name&gt;/</code></td><td>A world: <code>level.dat</code>, <code>levelname.txt</code> and a <code>db</code> folder (LevelDB), in the same layout Bedrock uses. Player data is saved with it.</td></tr><tr><td><code>plugins/</code></td><td>Plugin jars and their generated data folders, each usually holding a <code>config.yml</code>. See <a href="plugins.html">Plugins</a>.</td></tr><tr><td><code>logs/latest.log</code></td><td>The console, in plain text, for the current run. It&rsquo;s overwritten each time the server starts &mdash; copy it first if you need it.</td></tr></tbody></table></div>
+<div class="table-wrap"><table><thead><tr><th scope="col">File or folder</th><th scope="col">What it holds</th></tr></thead><tbody><tr><td><code>server.properties</code></td><td>The main settings, below. Netherrack writes it with comments explaining each one.</td></tr><tr><td><code>netherrack.yml</code></td><td>Netherrack-specific settings: logging formats and colors, debug options, messages and the flat preset.</td></tr><tr><td><code>permissions.json</code></td><td>The operators, by Xbox Live ID.</td></tr><tr><td><code>whitelist.json</code></td><td>The players allowed in when <code>white-list</code> is on.</td></tr><tr><td><code>banned-players.json</code></td><td>Banned players, their reasons and who banned them.</td></tr><tr><td><code>nethernet-identity.pem</code></td><td>The server&rsquo;s NetherNet identity, created on first start. Leave it alone &mdash; losing it changes how clients recognize the server.</td></tr><tr><td><code>worlds/&lt;level-name&gt;/</code></td><td>A world: <code>level.dat</code>, <code>levelname.txt</code> and a <code>db</code> folder (LevelDB), in the same layout Bedrock uses. Player data is saved with it.</td></tr><tr><td><code>plugins/</code></td><td>Plugin jars and their generated data folders, each usually holding a <code>config.yml</code>. See <a href="plugins.html">Plugins</a>.</td></tr><tr><td><code>logs/latest.log</code></td><td>The console, in plain text, for the current run. It&rsquo;s overwritten each time the server starts &mdash; copy it first if you need it.</td></tr></tbody></table></div>
 
 <h2 id="server-properties">server.properties</h2>
 <p>The familiar Bedrock-style settings file, created on first run. Here&rsquo;s every setting, with its default and whether Netherrack does anything with it yet.</p>
@@ -72,6 +72,7 @@ labels:
 messages:
   server-shutdown: "Server closed"
   server-whitelist: "You are not whitelisted on this server!"
+  server-ban: "You are banned!"
 
 level:
   preset-type: "Classic Flat"</code></pre>
@@ -90,6 +91,7 @@ level:
 <tr><td><code>labels.bracket-color</code></td><td><code>null</code></td><td>Colors brackets around placeholders without coloring brackets in a player&rsquo;s message.</td></tr>
 <tr><td><code>messages.server-shutdown</code></td><td><code>Server closed</code></td><td>Message shown to players when the server closes.</td></tr>
 <tr><td><code>messages.server-whitelist</code></td><td><code>You are not whitelisted on this server!</code></td><td>Disconnect reason shown to players turned away by the whitelist.</td></tr>
+<tr><td><code>messages.server-ban</code></td><td><code>You are banned!</code></td><td>Disconnect reason shown to banned players; the stored reason is appended after <code>Reason:</code>.</td></tr>
 <tr><td><code>level.preset-type</code></td><td><code>Classic Flat</code></td><td>Which flat preset a new flat world is built from. Only used when <code>level-type</code> is <code>flat</code>.</td></tr>
 </tbody></table></div>
 <p>Formats accept <code>{time}</code>, <code>{date}</code>, <code>{millis}</code>, <code>{thread}</code>, <code>{level}</code>, <code>{message}</code>, <code>{prefix}</code> and <code>{suffix}</code>. An inline <code>&lt;name&gt;</code> inserts a color, a style (<code>&lt;bold&gt;</code>, <code>&lt;italic&gt;</code>, <code>&lt;underline&gt;</code>, <code>&lt;reset&gt;</code>) or one of those same values; <code>&lt;null&gt;</code> inserts nothing. For example: <code>[&lt;yellow&gt;{time}] &lt;bold&gt;{level}&lt;reset&gt; {message}</code>.</p>
@@ -123,6 +125,22 @@ level:
   { "name": "AnOfflineFriend" }
 ]</code></pre>
 <p>Use <a href="commands.html#whitelist"><code>/whitelist</code></a> to add and remove players, list entries, reload hand edits, or turn the whitelist on and off. The disconnect reason comes from <code>messages.server-whitelist</code> in <code>netherrack.yml</code>.</p>
+
+<h2 id="ban-file">banned-players.json</h2>
+<p>The player ban list, kept in the same shape Cloudburst Nukkit uses: each entry has a lowercase name, creation date, source, <code>expireDate</code> and reason. Netherrack also saves the XUID and UUID of an online target, so a ban survives a gamertag change; an offline player can be banned by name alone. A date in <code>expireDate</code> makes the ban lift itself once it passes, while <code>Forever</code> is permanent. If the file doesn&rsquo;t exist, Netherrack creates an empty one.</p>
+<span class="code-label">banned-players.json (the identifiers are just examples)</span>
+<pre><code>[
+  {
+    "name": "griefer",
+    "xuid": "2535400000000000",
+    "uuid": "11111111-2222-3333-4444-555555555555",
+    "creationDate": "2026-11-21 20:30:00 +0000",
+    "source": "SchleroMC",
+    "expireDate": "Forever",
+    "reason": "griefing the spawn"
+  }
+]</code></pre>
+<p>Use <a href="commands.html#ban"><code>/ban</code></a> to add a ban, <a href="commands.html#pardon"><code>/pardon</code></a> (or <code>/unban</code>) to remove one, and <a href="commands.html#banlist"><code>/banlist</code></a> to list bans or reload the file after a hand edit. Nukkit&rsquo;s <code>/banlist ips</code> is accepted too, but Netherrack doesn&rsquo;t keep IP bans. The disconnect reason comes from <code>messages.server-ban</code> in <code>netherrack.yml</code>, with the stored reason appended.</p>
 
 <h2 id="language">Language</h2>
 <p>The <code>language</code> setting controls the console&rsquo;s own messages: <code>en-US</code> (English) or <code>pt-BR</code> (Brazilian Portuguese). Players see the game itself in whatever language their client uses. To change it, edit the value and restart. Translations are ordinary <code>.properties</code> files in the project&rsquo;s <code>lang</code> folder.</p>
