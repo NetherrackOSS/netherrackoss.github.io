@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Commands - Netherrack</title>
-<meta name="description" content="Netherrack&#x27;s console and chat commands: help, version, gamemode, give, clear, kill, kick, ban, pardon, banlist, tp, op, deop, reload, plugins and stop, with usage and permission levels.">
+<meta name="description" content="Netherrack&#x27;s console and chat commands: help, version, gamemode, difficulty, time, weather, give, clear, kill, kick, ban, pardon, banlist, tp, op, deop, reload, plugins and stop, with usage and permission levels.">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fbf8f6">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#141011">
 <meta property="og:site_name" content="Netherrack">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Commands - Netherrack">
-<meta property="og:description" content="Netherrack&#x27;s console and chat commands: help, version, gamemode, give, clear, kill, kick, ban, pardon, banlist, tp, op, deop, reload, plugins and stop, with usage and permission levels.">
+<meta property="og:description" content="Netherrack&#x27;s console and chat commands: help, version, gamemode, difficulty, time, weather, give, clear, kill, kick, ban, pardon, banlist, tp, op, deop, reload, plugins and stop, with usage and permission levels.">
 <link rel="icon" type="image/png" href="assets/img/favicon.png">
 <link rel="stylesheet" href="assets/css/style.css">
 <script>(function(){var r=document.documentElement;r.classList.add('js');try{var t=localStorage.getItem('netherrack-theme');if(t==='light'||t==='dark'){r.setAttribute('data-theme',t);}}catch(e){}})();</script>
@@ -42,6 +42,9 @@
 <tr><td><code>help</code><br><small>alias <code>?</code></small></td><td><code>/help [page]</code><br><code>/help &lt;command&gt;</code></td><td>0</td><td>Lists the commands you can use, a page at a time, or explains one command.</td></tr>
 <tr><td><code>version</code><br><small>alias <code>ver</code></small></td><td><code>/version</code></td><td>0</td><td>Shows the server software, version and git commit, plugin API version, Java and operating system.</td></tr>
 <tr><td><code>gamemode</code></td><td><code>/gamemode &lt;mode&gt; [player]</code></td><td>2</td><td>Changes a player&rsquo;s game mode. Without a player it changes your own.</td></tr>
+<tr><td><code>difficulty</code></td><td><code>/difficulty [peaceful|easy|normal|hard|0-3]</code></td><td>2</td><td>Shows or changes the world difficulty. The value is saved in <code>server.properties</code> and <code>level.dat</code> and synced to connected players.</td></tr>
+<tr><td><code>time</code></td><td><code>/time &lt;query|set|add&gt; &lt;value&gt;</code></td><td>2</td><td>Queries or changes the world time. <code>set</code> accepts names like <code>day</code>, <code>night</code>, <code>noon</code>, <code>midnight</code>, <code>sunrise</code>, <code>sunset</code> or a tick value; <code>add</code> adds ticks.</td></tr>
+<tr><td><code>weather</code></td><td><code>/weather &lt;clear|rain|thunder&gt; [duration]</code></td><td>2</td><td>Changes the world weather. The duration is accepted for command compatibility, but Netherrack currently keeps the chosen weather until changed again.</td></tr>
 <tr><td><code>give</code></td><td><code>/give &lt;player&gt; &lt;item&gt; [amount]</code></td><td>2</td><td>Gives a player an item, as vanilla&rsquo;s command does. The item may be written with or without <code>minecraft:</code>; what doesn&rsquo;t fit in their inventory is thrown out at their feet.</td></tr>
 <tr><td><code>clear</code></td><td><code>/clear [player]</code></td><td>2</td><td>Empties a player&rsquo;s inventory, armor, offhand, cursor and open crafting grid. <code>/clear</code> or <code>/clear @s</code> clears your own.</td></tr>
 <tr><td><code>kill</code></td><td><code>/kill [player]</code></td><td>2</td><td>Kills a player, death screen and respawn handshake included, just as a killing blow would. Without a player it kills you; it works on creative players too, as vanilla&rsquo;s does.</td></tr>
@@ -100,11 +103,11 @@
 Server version: 0.4.0-beta (git commit: cee2419)
 Java version: 21.0.4 (Eclipse Adoptium)
 Operating system: Linux 6.1.0 (amd64)
-Plugin API version: 0.4.0-SNAPSHOT</code></pre>
+Plugin API version: 0.5.0-SNAPSHOT</code></pre>
 
 <h2 id="permissions">Permission levels</h2>
 <p>Every command needs a permission level. Everyone starts at 0, the console is at 4, and operators get the level in <code>op-permission-level</code> (2 by default).</p>
-<div class="table-wrap"><table><thead><tr><th scope="col">Level</th><th scope="col">Adds these commands</th></tr></thead><tbody><tr><td>0</td><td><code>help</code>, <code>version</code>, <code>plugins</code> &mdash; every player has this</td></tr><tr><td>2</td><td><code>gamemode</code>, <code>give</code>, <code>clear</code>, <code>kill</code>, <code>kick</code>, <code>ban</code>, <code>pardon</code>, <code>banlist</code>, <code>tp</code> &mdash; what operators get by default</td></tr><tr><td>3</td><td><code>op</code>, <code>deop</code>, <code>whitelist</code></td></tr><tr><td>4</td><td><code>reload</code>, <code>stop</code> &mdash; the console always has this</td></tr></tbody></table></div>
+<div class="table-wrap"><table><thead><tr><th scope="col">Level</th><th scope="col">Adds these commands</th></tr></thead><tbody><tr><td>0</td><td><code>help</code>, <code>version</code>, <code>plugins</code> &mdash; every player has this</td></tr><tr><td>2</td><td><code>gamemode</code>, <code>difficulty</code>, <code>time</code>, <code>weather</code>, <code>give</code>, <code>clear</code>, <code>kill</code>, <code>kick</code>, <code>ban</code>, <code>pardon</code>, <code>banlist</code>, <code>tp</code> &mdash; what operators get by default</td></tr><tr><td>3</td><td><code>op</code>, <code>deop</code>, <code>whitelist</code></td></tr><tr><td>4</td><td><code>reload</code>, <code>stop</code> &mdash; the console always has this</td></tr></tbody></table></div>
 <div class="callout callout-tip" role="note"><span class="callout-title">Letting operators run /op and /stop</span><p>With the default <code>op-permission-level=2</code>, operators can use the level-2 commands but not <code>op</code>, <code>deop</code>, <code>whitelist</code>, <code>reload</code> or <code>stop</code>. Raise it to <code>3</code> to let them manage operators and the whitelist, or <code>4</code> to let them reload logging and stop the server. Only give 4 to people you fully trust.</p></div>
 
 <nav class="pager" aria-label="Pages"><a class="prev" href="configuration.html"><small>Previous</small>Configure</a><a class="next" href="plugins.html"><small>Next</small>Plugins</a></nav>

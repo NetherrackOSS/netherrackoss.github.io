@@ -27,9 +27,9 @@
   <main id="main" class="content">
 
 <h1>Plugins</h1>
-<p class="lead">Netherrack v0.4.0-beta has a small Java plugin API. Plugins get lifecycle callbacks, events, commands, permission nodes, scheduled tasks, Bedrock forms, and a narrow view of players and blocks.</p>
+<p class="lead">Netherrack v0.4.0-beta has a small Java plugin API. Plugins get lifecycle callbacks, events, commands, permission nodes, scheduled tasks, Bedrock forms, HUD messages, and a narrow view of players and blocks.</p>
 
-<div class="callout callout-warning" role="note"><span class="callout-title">Experimental API</span><p>The API is new and may change between releases. Plugins declare which API version they were built for, and the server checks it before loading them. A plugin built for 0.4.x runs on any 0.4.x server, but not on 0.3.x or 1.x.</p></div>
+<div class="callout callout-warning" role="note"><span class="callout-title">Experimental API</span><p>The API is new and may change between releases. Plugins declare which API version they were built for, and the server checks it before loading them. A plugin built for 0.5.x runs on any 0.5.x server, but not on 0.4.x or 1.x.</p></div>
 
 <h2 id="installing">Installing a plugin</h2>
 <ol class="steps">
@@ -41,7 +41,7 @@
 <p>Jar changes need a restart: runtime plugin enable, disable and reload are not implemented yet. Duplicate plugin names are skipped, and a failing callback disables only that plugin and anything that depends on it.</p>
 
 <h2 id="maven">Setting up a plugin project</h2>
-<p>Use Java 17 or newer. The API lives under the package root <code>com.netherrack.api.*</code> and is published by JitPack from the <code>v0.4.0-SNAPSHOT</code> tag; the version plugins declare is <code>0.4.0</code>. In short, the Maven coordinate is <code>com.github.NetherrackOSS:NetherrackAPI:v0.4.0-SNAPSHOT</code>. Keep the dependency at <code>provided</code> scope so the jar stays small and uses the copy shaded into <code>netherrack.jar</code>.</p>
+<p>Use Java 17 or newer. The API lives under the package root <code>com.netherrack.api.*</code> and is published by JitPack from the <code>v0.5.0-SNAPSHOT</code> tag; the version plugins declare is <code>0.5.0</code>. In short, the Maven coordinate is <code>com.github.NetherrackOSS:NetherrackAPI:v0.5.0-SNAPSHOT</code>. Keep the dependency at <code>provided</code> scope so the jar stays small and uses the copy shaded into <code>netherrack.jar</code>.</p>
 <span class="code-label">pom.xml</span>
 <pre><code>&lt;repositories&gt;
   &lt;repository&gt;
@@ -54,7 +54,7 @@
   &lt;dependency&gt;
     &lt;groupId&gt;com.github.NetherrackOSS&lt;/groupId&gt;
     &lt;artifactId&gt;NetherrackAPI&lt;/artifactId&gt;
-    &lt;version&gt;v0.4.0-SNAPSHOT&lt;/version&gt;
+    &lt;version&gt;v0.5.0-SNAPSHOT&lt;/version&gt;
     &lt;scope&gt;provided&lt;/scope&gt;
   &lt;/dependency&gt;
 &lt;/dependencies&gt;</code></pre>
@@ -65,7 +65,7 @@
 <span class="code-label">plugin.yml</span>
 <pre><code>name: HelloPlugin
 version: 1.0.0
-api-version: 0.4.0
+api-version: 0.5.0
 main: com.example.hello.HelloPlugin
 description: A small example plugin
 author: You
@@ -79,7 +79,7 @@ commands:
     aliases: [hi]
     usage: /hello [name]
     permission: hello.use</code></pre>
-<div class="table-wrap"><table><thead><tr><th scope="col">Key</th><th scope="col">Meaning</th></tr></thead><tbody><tr><td><code>name</code>, <code>version</code>, <code>main</code></td><td>Required. The name may contain letters, digits, dots, dashes and underscores; <code>main</code> is the full class implementing <code>Plugin</code>, normally by extending <code>PluginBase</code>.</td></tr><tr><td><code>api-version</code></td><td>The API version the plugin targets, <code>0.4.0</code>. Defaults to the API jar&rsquo;s current version if omitted.</td></tr><tr><td><code>load</code></td><td><code>STARTUP</code> or <code>POSTWORLD</code>. Defaults to <code>POSTWORLD</code>; see <a href="#lifecycle">Lifecycle</a>.</td></tr><tr><td><code>depend</code>, <code>softdepend</code>, <code>loadbefore</code></td><td>Ordering hints. A missing hard dependency stops that plugin from enabling; soft dependencies and loadbefore only affect order.</td></tr><tr><td><code>commands</code></td><td>Command declarations with <code>description</code>, <code>aliases</code>, <code>usage</code> and <code>permission</code>. There is no <code>permissions:</code> block in this API version &mdash; register nodes in code instead.</td></tr></tbody></table></div>
+<div class="table-wrap"><table><thead><tr><th scope="col">Key</th><th scope="col">Meaning</th></tr></thead><tbody><tr><td><code>name</code>, <code>version</code>, <code>main</code></td><td>Required. The name may contain letters, digits, dots, dashes and underscores; <code>main</code> is the full class implementing <code>Plugin</code>, normally by extending <code>PluginBase</code>.</td></tr><tr><td><code>api-version</code></td><td>The API version the plugin targets, <code>0.5.0</code>. Defaults to the API jar&rsquo;s current version if omitted.</td></tr><tr><td><code>load</code></td><td><code>STARTUP</code> or <code>POSTWORLD</code>. Defaults to <code>POSTWORLD</code>; see <a href="#lifecycle">Lifecycle</a>.</td></tr><tr><td><code>depend</code>, <code>softdepend</code>, <code>loadbefore</code></td><td>Ordering hints. A missing hard dependency stops that plugin from enabling; soft dependencies and loadbefore only affect order.</td></tr><tr><td><code>commands</code></td><td>Command declarations with <code>description</code>, <code>aliases</code>, <code>usage</code> and <code>permission</code>. There is no <code>permissions:</code> block in this API version &mdash; register nodes in code instead.</td></tr></tbody></table></div>
 
 <h2 id="lifecycle">Lifecycle and load order</h2>
 <p>Extend <code>com.netherrack.api.plugin.PluginBase</code>. It supplies the config, logger, server, data folder and scheduler; the three callbacks do nothing unless you override them.</p>
@@ -150,6 +150,9 @@ public final class MyListener implements Listener {
 <tr><td><code>PlayerQuitEvent</code></td><td>No</td><td>Player has disconnected and been saved.</td><td>Player&rsquo;s network thread</td></tr>
 <tr><td><code>PlayerChatEvent</code></td><td>Yes</td><td>Before broadcast; the message can be rewritten.</td><td>Player&rsquo;s network thread</td></tr>
 <tr><td><code>PlayerCommandEvent</code></td><td>Yes</td><td>Before dispatch; the command can be rewritten (no leading slash).</td><td>Player&rsquo;s network thread</td></tr>
+<tr><td><code>PlayerActionBarEvent</code></td><td>Yes</td><td>Before an action bar message; the text and animation times can be rewritten.</td><td>Player&rsquo;s network thread</td></tr>
+<tr><td><code>PlayerToastEvent</code></td><td>Yes</td><td>Before a toast; the title and content can be rewritten.</td><td>Player&rsquo;s network thread</td></tr>
+<tr><td><code>PlayerPopupEvent</code></td><td>Yes</td><td>Before a popup message; the text can be rewritten.</td><td>Player&rsquo;s network thread</td></tr>
 <tr><td><code>PlayerFormRespondedEvent</code></td><td>No</td><td>After a player answers or closes a form.</td><td>Player&rsquo;s network thread</td></tr>
 <tr><td><code>BlockPlaceEvent</code></td><td>Yes</td><td>Before a player places a block.</td><td>Player&rsquo;s network thread</td></tr>
 <tr><td><code>BlockBreakEvent</code></td><td>Yes</td><td>Before a player breaks a block.</td><td>Player&rsquo;s network thread</td></tr>
@@ -194,6 +197,14 @@ getScheduler().cancelTask(task.getTaskId());</code></pre>
   <li><code>World</code> provides the name, seed, spawn, save, and <code>getBlock()</code> / <code>setBlock()</code> by coordinates or <code>BlockPosition</code>. A block lookup returns <code>null</code> for air; setting <code>null</code> clears a block.</li>
   <li><code>BlockSnapshot</code> is an immutable block copy with an identifier, exact state hash and properties. Properties are lower-case names with boolean, integer or string values. <code>setBlock()</code> also sends the change to clients that have the chunk.</li>
 </ul>
+<p>HUD messages follow Cloudburst Nukkit's player methods: <code>sendActionBar(String)</code>,
+<code>sendToast(String, String)</code> and <code>sendPopup(String)</code>. Each send fires its
+matching cancellable event before the packet, so listeners can rewrite or cancel it. The action bar
+also has an overload with fade-in, stay and fade-out times in ticks; the short overload uses one
+tick in, no stay and one tick out.</p>
+<pre><code>player.sendActionBar("Mining 12%");
+player.sendToast("Quest complete", "Return to the village");
+player.sendPopup("Press jump to continue");</code></pre>
 <pre><code>Player player = sender.getPlayer();
 Location location = player.getLocation();
 BlockPosition below = new BlockPosition(
@@ -215,7 +226,10 @@ SimpleForm form = new SimpleForm("Test", "Test")
                 "You clicked " + response.getButtonText() + "."))
         .onClose(submitter -&gt; submitter.sendMessage("You closed the form."));
 player.showForm(form);</code></pre>
-<p>The example plugin&rsquo;s <code>/testform</code> command opens exactly that form. Callbacks run on the player&rsquo;s network thread, so keep them short and use the scheduler for slower work.</p>
+<p>The example plugin&rsquo;s <code>/testform</code> command opens exactly that form, and
+<code>/testmessages</code> sends all three HUD messages so a listener can observe their events.
+Callbacks run on the player&rsquo;s network thread, so keep them short and use the scheduler for
+slower work.</p>
 
 <h2 id="limitations">Limitations</h2>
 <ul>

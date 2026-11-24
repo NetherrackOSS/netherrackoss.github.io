@@ -50,7 +50,7 @@
 <li>✅ Eating food</li>
 <li>✅ Player-versus-player combat with reach, weapon damage, knockback and invulnerability ticks</li>
 <li>✅ Item entities: dropped items, death drops when a player dies, and items burning in lava or fire</li>
-<li>✅ Commands: <code>help</code>, <code>version</code>, <code>gamemode</code>, <code>give</code>, <code>clear</code>, <code>kill</code>, <code>kick</code>, <code>ban</code>, <code>pardon</code>, <code>banlist</code>, <code>tp</code>, <code>op</code>, <code>deop</code>, <code>whitelist</code>, <code>reload</code>, <code>plugins</code>, <code>stop</code></li>
+<li>✅ Commands: <code>help</code>, <code>version</code>, <code>gamemode</code>, <code>difficulty</code>, <code>time</code>, <code>weather</code>, <code>give</code>, <code>clear</code>, <code>kill</code>, <code>kick</code>, <code>ban</code>, <code>pardon</code>, <code>banlist</code>, <code>tp</code>, <code>op</code>, <code>deop</code>, <code>whitelist</code>, <code>reload</code>, <code>plugins</code>, <code>stop</code></li>
 <li>✅ Operators and permission levels</li>
 <li>✅ Whitelist: <code>white-list</code>, <code>whitelist.json</code> and the <code>/whitelist</code> command</li>
 <li>✅ Player bans: <code>banned-players.json</code> and the <code>/ban</code>, <code>/pardon</code> and <code>/banlist</code> commands</li>
@@ -74,8 +74,8 @@
 <ul>
   <li><strong>One Bedrock version, one transport.</strong> Netherrack targets Bedrock protocol 2225 (Minecraft 1.26.60) over NetherNet, the transport the game has used since that release. The protocol has to match exactly, so clients on other versions &mdash; or anything still speaking RakNet &mdash; can&rsquo;t connect.</li>
   <li><strong><code>online-mode</code> isn&rsquo;t read as a toggle.</strong> It&rsquo;s generated in <code>server.properties</code>, but Xbox authentication comes from NetherNet and login-chain validation. Don&rsquo;t rely on the file setting alone to control who may join.</li>
-  <li><strong><code>difficulty</code> isn&rsquo;t applied.</strong> The world currently always runs on Easy, regardless of this setting.</li>
-  <li><strong>No day-night cycle.</strong> The day cycle is frozen: the sun stays where it is and the world never darkens.</li>
+  <li><strong><code>difficulty</code> is partially applied.</strong> The selected difficulty is stored, synced to clients, and exposed by <code>/difficulty</code>, but full mob/combat difficulty rules are still limited.</li>
+  <li><strong>Time and weather are command-driven.</strong> <code>/time</code> and <code>/weather</code> change and persist the world state, but there is no full automatic day-night or weather cycle yet.</li>
   <li><strong>Plains-only terrain.</strong> Generated worlds have no caves, ores, flowers or multiple biomes yet.</li>
   <li><strong>Some screens are missing.</strong> Furnace, stonecutter and smithing screens aren&rsquo;t implemented.</li>
   <li><strong>Client movement isn&rsquo;t validated.</strong> Positions are currently accepted as the client reports them.</li>
