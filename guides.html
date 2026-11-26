@@ -85,11 +85,11 @@
 
 <h2 id="plugin-install">Installing a plugin</h2>
 <ol class="steps">
-  <li><p>Build or download a plugin jar. Plugins use Java 17+ and declare <code>api-version: 0.5.0</code> in <code>plugin.yml</code>.</p></li>
+  <li><p>Build or download a plugin jar. Plugins use Java 17+ and declare <code>api-version: 0.6.0</code> in <code>plugin.yml</code>.</p></li>
   <li><p>Stop the server and copy the jar into the <code>plugins/</code> folder next to <code>netherrack.jar</code>.</p></li>
   <li><p>Start the server. Look for <code>Loaded plugin &lt;name&gt; v&lt;version&gt;</code> in the log, then run <code>/plugins</code> to see the list.</p></li>
 </ol>
-<p>A plugin&rsquo;s first start creates <code>plugins/&lt;name&gt;/config.yml</code> when it saves its defaults. Runtime plugin enable, disable and reload are not supported yet, so restart after adding, removing or updating a jar. The full API and Maven coordinates are on the <a href="plugins.html">Plugins</a> page; the server repository also includes an <code>examples/hello-plugin</code> project.</p>
+<p>A plugin&rsquo;s first start creates <code>plugins/&lt;name&gt;/config.yml</code> when it saves its defaults. <code>/reload</code> hot-reloads plugins on a best-effort basis, but a full restart is still the safest option after adding, removing or updating a jar. The full API and Maven coordinates are on the <a href="plugins.html">Plugins</a> page; the server repository also includes an <code>examples/hello-plugin</code> project.</p>
 
 <h2 id="reload-logging">Reloading logging</h2>
 <ol class="steps">
@@ -97,7 +97,7 @@
   <li><p>Run <code>/reload</code> (alias <code>rl</code>, permission level 4) in the console or chat.</p></li>
   <li><p>Check the console and <code>logs/latest.log</code>. DEBUG lines stay out of the console unless <code>logging.console-debug: true</code>, and per-level <code>*-enabled</code> keys hide lines on the console without removing them from the log file.</p></li>
 </ol>
-<p><code>/reload</code> only re-reads logging settings; most other options still need a restart, and plugin jars are never reloaded at runtime.</p>
+<p><code>/reload</code> re-reads logging settings and reloads plugins on a best-effort basis; other server options still need a restart.</p>
 
 <h2 id="port-forward">Letting friends connect over the internet</h2>
 <p>By default the server is only reachable on your local network. To open it up further:</p>
@@ -105,7 +105,7 @@
   <li><p>Forward port <code>19132</code> (or whatever you set <code>server-port</code> to) on your router to the computer running Netherrack. NetherNet uses HTTP signaling and WebRTC game traffic, so check both TCP and UDP.</p></li>
   <li><p>Share your public IP address (and the port, if you changed it) with the people you want to join.</p></li>
 </ol>
-<div class="callout callout-danger" role="note"><span class="callout-title">Experimental beta software, open to the internet</span><p>Netherrack hasn&rsquo;t been hardened for public, unsupervised access &mdash; see <a href="status.html#limitations">known limitations</a>. The <code>online-mode</code> key is ignored as a toggle; authentication comes from NetherNet and login-chain validation. Only do this with people you trust, and keep backups.</p></div>
+<div class="callout callout-danger" role="note"><span class="callout-title">Experimental beta software, open to the internet</span><p>Netherrack hasn&rsquo;t been hardened for public, unsupervised access &mdash; see <a href="status.html#limitations">known limitations</a>. Keep <code>online-mode=true</code> so NetherNet tokens and login chains must be Xbox-authenticated. Setting it to <code>false</code> accepts self-signed/offline logins and should only be used on a trusted LAN or behind a proxy. Keep backups.</p></div>
 
 <nav class="pager" aria-label="Pages"><a class="prev" href="plugins.html"><small>Previous</small>Plugins</a><a class="next" href="status.html"><small>Next</small>Status</a></nav>
   </main>
@@ -114,7 +114,7 @@
 <footer class="site-footer"><div class="footer-inner">
   <ul class="footer-links"><li><a href="https://github.com/NetherrackOSS/Netherrack">GitHub</a></li><li><a href="https://github.com/NetherrackOSS/Netherrack/releases">Releases</a></li><li><a href="https://github.com/NetherrackOSS/Netherrack/issues">Report an issue</a></li><li><a href="https://discord.gg/JFUz2G8H4V">Discord</a></li><li><a href="https://github.com/NetherrackOSS/Netherrack/blob/main/LICENSE">GPL-3.0 license</a></li></ul>
   <p>Netherrack is an independent project. It is not affiliated with, endorsed by, or sponsored by Mojang Studios or Microsoft. Minecraft is a trademark of Mojang Studios.</p>
-  <p>These docs cover Netherrack v0.4.0-beta.</p>
+  <p>These docs cover Netherrack v0.6.0-beta.</p>
 </div></footer>
 </body>
 </html>

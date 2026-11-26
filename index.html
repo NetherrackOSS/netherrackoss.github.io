@@ -55,7 +55,7 @@
   <div class="card"><h3>Worlds that persist</h3><p>Worlds are saved in Bedrock&rsquo;s own LevelDB format and autosaved every 30 seconds. Each one lives in <code>worlds/&lt;level-name&gt;/</code>.</p></div>
   <div class="card"><h3>Items in the world</h3><p>Dropped items fall, slide to a stop and can be picked up again &mdash; and when a player dies, everything they carry drops where they fell.</p></div>
   <div class="card"><h3>Operators, permissions, bans and the whitelist</h3><p>Five permission levels, <code>/op</code> and <code>/deop</code>, a <code>permissions.json</code> that remembers operators by Xbox Live ID, lasting player bans with <code>/ban</code>, an optional whitelist with <code>/whitelist</code>, and API permission nodes for plugins.</p></div>
-  <div class="card"><h3>Plugins</h3><p>Jars in <code>plugins/</code> get lifecycle callbacks, events, commands, scheduled tasks, simple forms and a small player/world API. <a href="plugins.html">Write a plugin</a>.</p></div>
+  <div class="card"><h3>Plugins</h3><p>Jars in <code>plugins/</code> get lifecycle callbacks, commands, scheduled tasks, simple forms, damage/death/respawn, inventory/item, movement/teleport and metadata events, and offline-player lookup. <a href="plugins.html">Write a plugin</a>.</p></div>
   <div class="card"><h3>Chat and commands</h3><p>In-game chat with yellow join and leave messages. Commands work from both the console and the chat box, including <code>/clear</code>, <code>/kick</code>, <code>/ban</code>, <code>/plugins</code> and <code>/reload</code>. <a href="commands.html">Command reference</a>.</p></div>
   <div class="card"><h3>A friendly console</h3><p>Customizable per-level formats and colors, a plain-text copy in <code>logs/latest.log</code>, logging reload with <code>/reload</code>, and a console in English or Brazilian Portuguese.</p></div>
 </div>
@@ -78,7 +78,7 @@
 <p class="section-intro">Netherrack is built from scratch and still growing. Things you won&rsquo;t find yet:</p>
 <div class="narrow">
 <ul>
-  <li>Runtime plugin enable, disable and reload &mdash; adding or changing a jar still needs a restart.</li>
+  <li>Fully reliable runtime plugin reload &mdash; <code>/reload</code> is best-effort, so complex jars or plugin state still need a restart.</li>
   <li>Mobs &mdash; the only entities in the world so far are items a player dropped.</li>
   <li>Caves, ores, flowers and multiple biomes in generated terrain.</li>
   <li>Furnace, stonecutter and smithing screens.</li>
@@ -98,7 +98,7 @@
 <footer class="site-footer"><div class="footer-inner">
   <ul class="footer-links"><li><a href="https://github.com/NetherrackOSS/Netherrack">GitHub</a></li><li><a href="https://github.com/NetherrackOSS/Netherrack/releases">Releases</a></li><li><a href="https://github.com/NetherrackOSS/Netherrack/issues">Report an issue</a></li><li><a href="https://discord.gg/JFUz2G8H4V">Discord</a></li><li><a href="https://github.com/NetherrackOSS/Netherrack/blob/main/LICENSE">GPL-3.0 license</a></li></ul>
   <p>Netherrack is an independent project. It is not affiliated with, endorsed by, or sponsored by Mojang Studios or Microsoft. Minecraft is a trademark of Mojang Studios.</p>
-  <p>These docs cover Netherrack v0.4.0-beta.</p>
+  <p>These docs cover Netherrack v0.6.0-beta.</p>
 </div></footer>
 </body>
 </html>

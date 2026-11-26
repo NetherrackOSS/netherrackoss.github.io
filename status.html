@@ -54,7 +54,9 @@
 <li>✅ Operators and permission levels</li>
 <li>✅ Whitelist: <code>white-list</code>, <code>whitelist.json</code> and the <code>/whitelist</code> command</li>
 <li>✅ Player bans: <code>banned-players.json</code> and the <code>/ban</code>, <code>/pardon</code> and <code>/banlist</code> commands</li>
-<li>✅ Plugin API: lifecycle, events, commands, scheduler, permissions, simple forms and a small player/world/block API</li>
+<li>✅ Plugin API: lifecycle, events, commands, scheduler, permissions, simple forms with button icons, HUD messages, damage/death/respawn, inventory/item, movement/teleport and metadata events, offline-player lookup, and a small player/world/block API</li>
+<li>✅ Nukkit-style <code>players/</code> identity files and a working <code>online-mode</code> toggle</li>
+<li>✅ Best-effort plugin hot-reload through <code>/reload</code></li>
 <li>✅ Example Maven plugin and plugin API version in <code>/version</code></li>
 </ul></td></tr></tbody></table></div>
 
@@ -62,8 +64,8 @@
 <div class="table-wrap"><table><tbody><tr><td><ul>
 <li>⬜ Complete world system</li>
 <li>⬜ Complete Bedrock play/login flow</li>
+<li>⬜ Full offline player data beyond identities (inventories and positions)</li>
 <li>⬜ Mobs and a full entity system</li>
-<li>✅ Best-effort plugin hot-reload through <code>/reload</code></li>
 <li>⬜ Furnace, stonecutter and smithing screens</li>
 <li>⬜ Caves, ores, flowers and multiple biomes in generated terrain</li>
 <li>⬜ More blocks and gameplay features</li>
@@ -73,7 +75,7 @@
 <p>Beyond the missing features above, a few things that exist are worth knowing the edges of:</p>
 <ul>
   <li><strong>One Bedrock version, one transport.</strong> Netherrack targets Bedrock protocol 2225 (Minecraft 1.26.60) over NetherNet, the transport the game has used since that release. The protocol has to match exactly, so clients on other versions &mdash; or anything still speaking RakNet &mdash; can&rsquo;t connect.</li>
-  <li><strong><code>online-mode</code> isn&rsquo;t read as a toggle.</strong> It&rsquo;s generated in <code>server.properties</code>, but Xbox authentication comes from NetherNet and login-chain validation. Don&rsquo;t rely on the file setting alone to control who may join.</li>
+  <li><strong>Offline mode is for trusted networks.</strong> With <code>online-mode=true</code> (the default), NetherNet tokens and Bedrock login chains must be Xbox-authenticated with a matching XUID. Setting it to <code>false</code> accepts self-signed/offline logins, changes the server-list auth flags and prints a startup warning; use it only on a trusted LAN or behind a proxy.</li>
   <li><strong><code>difficulty</code> is partially applied.</strong> The selected difficulty is stored, synced to clients, and exposed by <code>/difficulty</code>, but full mob/combat difficulty rules are still limited.</li>
   <li><strong>Time and weather are command-driven.</strong> <code>/time</code> and <code>/weather</code> change and persist the world state, but there is no full automatic day-night or weather cycle yet.</li>
   <li><strong>Plains-only terrain.</strong> Generated worlds have no caves, ores, flowers or multiple biomes yet.</li>
@@ -86,7 +88,7 @@
 <p>None of this is hidden on purpose &mdash; Netherrack is young, and this list will shrink over time. If you hit something not covered here, <a href="https://github.com/NetherrackOSS/Netherrack/issues">open an issue</a>.</p>
 
 <h2 id="testing">What hasn&rsquo;t been tested</h2>
-<p>From the v0.4.0-beta notes, the current README and earlier release notes, these haven&rsquo;t been put through their paces yet:</p>
+<p>From the v0.6.0-beta notes, the current README and earlier release notes, these haven&rsquo;t been put through their paces yet:</p>
 <ul>
   <li>Long-term stability, performance with many simultaneous players, and shutdown behavior under every possible condition.</li>
   <li>World persistence after a crash or a forced process kill.</li>
@@ -99,7 +101,10 @@
   <li>Ban enforcement, the kick-on-ban message and <code>/ban</code>, <code>/pardon</code> and <code>/banlist</code> with a real client.</li>
   <li>Every gameplay mechanic and block interaction.</li>
   <li>Behavior under heavy chunk loading.</li>
-  <li>Plugin behavior beyond the plain-Java API checks, and hot-reload behavior with real plugin jars/state.</li>
+  <li>Plugin behavior beyond the plain-Java API checks and a headless start/stop smoke test, including hot-reload behavior with real plugin jars/state.</li>
+  <li>Online-mode enforcement and self-signed/offline logins with a real Bedrock client.</li>
+  <li>The new damage, death, respawn, inventory, item, movement, teleport and metadata events during real gameplay, with a real plugin jar.</li>
+  <li>Offline-player lookup and the <code>players/</code> identity files across long-running worlds and gamertag changes.</li>
 </ul>
 <p>This list isn&rsquo;t exhaustive either. If you find something, a bug report with your <code>/version</code> output and console log genuinely helps &mdash; see <a href="contributing.html#bugs">reporting a bug</a>.</p>
 
@@ -110,7 +115,7 @@
 <footer class="site-footer"><div class="footer-inner">
   <ul class="footer-links"><li><a href="https://github.com/NetherrackOSS/Netherrack">GitHub</a></li><li><a href="https://github.com/NetherrackOSS/Netherrack/releases">Releases</a></li><li><a href="https://github.com/NetherrackOSS/Netherrack/issues">Report an issue</a></li><li><a href="https://discord.gg/JFUz2G8H4V">Discord</a></li><li><a href="https://github.com/NetherrackOSS/Netherrack/blob/main/LICENSE">GPL-3.0 license</a></li></ul>
   <p>Netherrack is an independent project. It is not affiliated with, endorsed by, or sponsored by Mojang Studios or Microsoft. Minecraft is a trademark of Mojang Studios.</p>
-  <p>These docs cover Netherrack v0.4.0-beta.</p>
+  <p>These docs cover Netherrack v0.6.0-beta.</p>
 </div></footer>
 </body>
 </html>

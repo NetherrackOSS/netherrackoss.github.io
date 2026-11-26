@@ -23,14 +23,14 @@ Each page is a plain `.html` file (`index.html`, `installation.html`, `plugins.h
 
 ## Updating for a new Netherrack release
 
-A few things are worth checking whenever Netherrack's defaults or commands change:
+A few things are worth checking whenever Netherrack's defaults, commands or API change:
 
-- The footer on **every** page - the version these docs describe (currently `v0.4.0-beta`).
+- The footer on **every** page - the version these docs describe (currently `v0.6.0-beta`).
   There is no `DOCS_VERSION` variable; each footer is hard-coded.
-- `configuration.html` - the `server.properties` and `netherrack.yml` tables, and the
-  flat-preset list.
-- `commands.html` - the command table and permission levels.
-- `plugins.html` - the Maven coordinates, `api-version` and plugin feature list.
-- `status.html` - the implemented/not-implemented lists, kept in step with the
-  **Current status** section in the project's own README.
+- `configuration.html` - the `server.properties` and `netherrack.yml` tables, the
+  `players/` file section and the flat-preset list.
+- `commands.html` - the command table, permission levels and the example `/version` output.
+- `plugins.html` - the Maven coordinates, `api-version`, event table and plugin feature list.
+- `status.html` - the implemented/not-implemented lists, known limitations and untested
+  areas, kept in step with the project's own README and release notes.
 - The `Plugins` navigation item and the previous/next pager links on each page.
